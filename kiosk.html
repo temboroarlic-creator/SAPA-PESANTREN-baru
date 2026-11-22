@@ -116,6 +116,7 @@ html[data-tema] .result.err{background:rgba(255,59,48,.25)}
   .wrap.k-scan > :not(.cam){grid-column:2}
   .wrap.k-scan > .chips{flex-wrap:wrap;overflow:visible}
 }
+.k-tile{width:76px;height:76px;margin:0 auto;border-radius:24px;display:grid;place-items:center;background:linear-gradient(135deg,#34d399,#0f9d8a);color:#fff;box-shadow:0 10px 26px rgba(15,157,138,.35)}
 </style>
 <script>
 /* Tema SAPA Pesantren — pemilih & penyimpan tema (dipakai index.html & kiosk.html).
@@ -316,12 +317,12 @@ let lastView = null;
 function stopCamIfLeaving(){ if (lastView && lastView!==K.view) stopCam(); lastView = K.view; }
 
 function viewLogin(){
-  return `<div class="wrap" style="padding-top:8vh"><div style="text-align:center;margin-bottom:20px"><div style="font-size:54px">📷</div>
+  return `<div class="wrap" style="padding-top:8vh"><div style="text-align:center;margin-bottom:20px"><div class="k-tile"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.6-2.5h6.8L17 8h3a1 1 0 011 1v9a1 1 0 01-1 1H4a1 1 0 01-1-1V9a1 1 0 011-1z"/><circle cx="12" cy="13" r="3.4"/></svg></div>
     <h1 style="font-size:30px;font-weight:800;letter-spacing:-.02em;margin:8px 0 2px">Kios Absen Wajah</h1><p class="muted" style="margin:0">SAPA Pesantren · login pengurus</p></div>
     <form id="f-login" class="glass p"><label class="muted" style="font-size:13px;font-weight:600">PIN Pengurus</label>
     <input class="field" id="pin" type="password" inputmode="numeric" placeholder="••••••" required style="margin:6px 0 16px"><button class="btn" type="submit">Masuk</button></form>
     ${CFG.API_URL ? '' : '<p style="text-align:center;color:#b3190f;font-weight:600;margin-top:14px">API_URL belum diisi di bagian ISI DI SINI (atas file)</p>'}
-    <p style="text-align:center;margin-top:16px"><button class="mini" data-act="tema">🎨 Tema</button></p><p style="text-align:center;margin-top:10px"><a href="index.html" class="muted" style="font-size:13px">‹ kembali ke aplikasi</a></p></div>`;
+    <p style="text-align:center;margin-top:16px"><button class="mini" data-act="tema"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="vertical-align:-2px;margin-right:6px"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 010 17z" fill="currentColor" stroke="none"/></svg>Tema</button></p><p style="text-align:center;margin-top:10px"><a href="index.html" class="muted" style="font-size:13px">‹ kembali ke aplikasi</a></p></div>`;
 }
 function viewMenu(){
   const sholat = K.jenis==='sholat';
@@ -337,7 +338,7 @@ function viewMenu(){
       <div class="stat"><b>${nTerdaftar}</b><span class="muted">dari ${K.roster.length} santri sudah terdaftar</span></div>
       <div class="bar" style="margin:8px 0 14px"><i style="width:${K.roster.length?100*nTerdaftar/K.roster.length:0}%"></i></div>
       <button class="btn ghost" data-act="toDaftar">Daftarkan / Perbarui Wajah</button></div>
-    <p style="text-align:center;margin-top:14px"><button class="mini" data-act="tema">🎨 Tema</button> <button class="mini" data-act="logout">Keluar</button> <a class="mini" href="index.html" style="text-decoration:none">Aplikasi</a></p></div>`;
+    <p style="text-align:center;margin-top:14px"><button class="mini" data-act="tema"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="vertical-align:-2px;margin-right:6px"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 010 17z" fill="currentColor" stroke="none"/></svg>Tema</button> <button class="mini" data-act="logout">Keluar</button> <a class="mini" href="index.html" style="text-decoration:none">Aplikasi</a></p></div>`;
 }
 function daftarRows(){
   const q = K.q.trim().toLowerCase();
