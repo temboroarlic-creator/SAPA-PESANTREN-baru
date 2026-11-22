@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kios Absen Wajah · SAPA Pesantren</title>
+<meta name="theme-color" content="#0f766e">
+<link rel="icon" href="data:image/png;base64,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">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<script>
+/* ====== ISI DI SINI: URL Apps Script berakhiran /exec ====== */
+window.SAPA_CONFIG = {
+  API_URL: 'https://script.google.com/macros/s/AKfycbx5nJm0WsUsekhKVqs_AKcVqR1BpsZOXj7QfOuk8AKSe5yzlW_qfDK0xZUcQA7QX2DQhA/exec',   // <-- tempel URL /exec di antara tanda kutip
+  FACE_LIB_URL: 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.13/dist/face-api.js',
+  FACE_MODEL_URL: 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.13/model/'
+};
+</script>
+<style>
+/* ==========================================================
+ * Tema SAPA Pesantren — dipakai bersama oleh index.html & kiosk.html
+ * Tema bawaan "Kaca" tidak memakai file ini. Tema lain aktif lewat
+ * atribut <html data-tema="samsung|gelap|hijau"> (diatur tema.js).
+ * Tema non-kaca TANPA blur → lebih ringan di HP lama.
+ * ========================================================== */
+html[data-tema]{--ink2:#33475b;--tg:#1b7d37;--tb:#0a5bbd;--to:#9a5b00;--tr:#b3190f;--seg:rgba(110,125,145,.16);--seg-on:#fff;--on:#fff;--line:rgba(110,125,145,.15)}
+html[data-tema=samsung]{--ink:#111418;--muted:#6b7280;--teal:#1a6dff;--accent:#3e91ff;--soft:#e6f0ff;--bg:#f2f3f5;--card:#fff;--field:#f2f3f5}
+html[data-tema=hijau]{--ink:#10261a;--muted:#5b6f63;--teal:#166534;--accent:#15803d;--soft:#dcf5e3;--bg:#f4f1e8;--card:#fff;--field:#efeade}
+html[data-tema=gelap]{--ink:#e8eef4;--ink2:#c5d0db;--muted:#9aa8b5;--teal:#6ee7b7;--accent:#34d399;--soft:rgba(52,211,153,.16);--bg:#0d1217;--card:#18212b;--field:#232f3b;--seg:rgba(255,255,255,.08);--seg-on:#2e3c4a;--on:#06281c;--tg:#6ee08c;--tb:#7db8ff;--to:#ffc266;--tr:#ff8a82;--line:rgba(255,255,255,.08)}
+
+html[data-tema] body{background:var(--bg);color:var(--ink)}
+html[data-tema] .scene{background:var(--bg)}
+html[data-tema] .blob{display:none}
+html[data-tema] .glass{background:var(--card);-webkit-backdrop-filter:none;backdrop-filter:none;border:1px solid var(--line);box-shadow:0 1px 3px rgba(0,0,0,.06)}
+html[data-tema=gelap] .glass{box-shadow:none}
+html[data-tema=samsung] .glass{border:0;border-radius:30px}
+html[data-tema=samsung] .glass-sm{border-radius:24px}
+
+html[data-tema] .field{background:var(--field);border:1px solid transparent;color:var(--ink);box-shadow:none}
+html[data-tema] .field:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--soft)}
+html[data-tema] .dateinp{background:var(--field);color:var(--ink)}
+html[data-tema] .lbl{color:var(--muted)}
+
+html[data-tema] .btn{background:var(--accent);color:var(--on);box-shadow:none}
+html[data-tema=samsung] .btn{border-radius:999px}
+html[data-tema] .btn.ghost{background:var(--field);color:var(--ink)}
+html[data-tema] .btn.red{background:#e8281d;color:#fff}
+html[data-tema] .mini{background:var(--soft);color:var(--teal)}
+html[data-tema] .iconbtn{background:var(--field);color:var(--ink)}
+html[data-tema] .chip{background:var(--card);border:1px solid var(--line);color:var(--ink2)}
+html[data-tema] .chip.on{background:var(--accent);color:var(--on);border-color:transparent;box-shadow:none}
+html[data-tema] .chip.bad{background:#e8281d;color:#fff}
+
+html[data-tema] .seg{background:var(--seg)}
+html[data-tema] .seg button{color:var(--muted)}
+html[data-tema] .seg button.on{color:#fff}
+html[data-tema] .seg.light button.on{background:var(--seg-on);color:var(--ink);box-shadow:none}
+
+html[data-tema] .logo,html[data-tema] .avatar{background:var(--accent);color:var(--on);box-shadow:none}
+html[data-tema] .tabbar button{color:var(--muted)}
+html[data-tema] .tabbar button.on{background:var(--soft);color:var(--teal);box-shadow:none}
+html[data-tema] .bar{background:var(--seg)}
+html[data-tema] .bar i{background:var(--accent)}
+
+html[data-tema] .alert{-webkit-backdrop-filter:none;backdrop-filter:none;border-color:transparent}
+html[data-tema] .alert.red{color:var(--tr)}
+html[data-tema] .alert.amber{color:var(--to)}
+html[data-tema] .alert.green{color:var(--tg)}
+html[data-tema] .alert.demo{color:var(--tb)}
+html[data-tema] .chip-ok{color:var(--tg)}
+html[data-tema] .badge.ok{color:var(--tg)}
+html[data-tema] .badge.no{color:var(--to)}
+html[data-tema] .cell.empty{background:var(--seg);color:var(--muted)}
+html[data-tema] .shgrid .tg{color:var(--ink2)}
+html[data-tema] .sheet{background:var(--card)}
+html[data-tema] .sk{background:linear-gradient(90deg,var(--seg),var(--field),var(--seg));background-size:200% 100%}
+html[data-tema] .row{border-top-color:var(--line)}
+html[data-tema] .scrim{-webkit-backdrop-filter:none;backdrop-filter:none}
+html[data-tema] .kres.ok{background:rgba(52,199,89,.22)}
+html[data-tema] .kres.info{background:rgba(10,132,255,.2)}
+html[data-tema] .kres{color:var(--ink)}
+html[data-tema] .result{background:var(--card);color:var(--ink)}
+html[data-tema] .result.ok{background:rgba(52,199,89,.25)}
+html[data-tema] .result.info{background:rgba(10,132,255,.22)}
+html[data-tema] .result.err{background:rgba(255,59,48,.25)}
+
+/* ---- Pemilih tema (lembar bawah) ---- */
+.tm-scrim{position:fixed;inset:0;background:rgba(10,20,30,.4);z-index:90}
+.tm-sheet{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(100vw,520px);z-index:91;border-radius:30px 30px 0 0;
+  padding:14px 18px calc(22px + env(safe-area-inset-bottom));background:var(--card,#f7fbfa);color:var(--ink,#0b1b2b);
+  box-shadow:0 -10px 40px rgba(0,0,0,.25);animation:tmup .25s ease;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+@keyframes tmup{from{transform:translate(-50%,100%)}}
+.tm-sheet h3{margin:0 0 2px;font-size:20px}
+.tm-sheet p{margin:0 0 4px;font-size:13px;color:var(--muted,#5d6d7e)}
+.tm-opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:2px solid transparent;background:var(--field,rgba(110,125,145,.12));
+  color:inherit;border-radius:20px;padding:12px;margin-top:10px;font-family:inherit;font-size:16px;cursor:pointer}
+.tm-opt.on{border-color:var(--teal,#0f766e)}
+.tm-opt b{display:block}.tm-opt span{font-size:12px;color:var(--muted,#5d6d7e)}
+.tm-sw{width:56px;height:44px;border-radius:13px;flex:none;display:flex;align-items:flex-end;gap:4px;padding:6px;border:1px solid rgba(0,0,0,.08)}
+.tm-sw i{flex:1;border-radius:6px;height:60%}
+.tm-ck{margin-left:auto;font-weight:800;color:var(--teal,#0f766e)}
+
+</style>
+<script>
+/* Tema SAPA Pesantren — pemilih & penyimpan tema (dipakai index.html & kiosk.html).
+ * Pilihan disimpan di perangkat masing-masing (localStorage). */
+(function () {
+  var TEMAS = [
+    ['kaca', 'Kaca', 'Efek kaca ala iPhone', 'linear-gradient(135deg,#6ee7b7,#93c5fd)', ['rgba(255,255,255,.8)', 'rgba(255,255,255,.55)']],
+    ['samsung', 'Samsung', 'Datar bergaya One UI — paling ringan', '#f2f3f5', ['#ffffff', '#3e91ff']],
+    ['gelap', 'Gelap', 'Nyaman di ruangan redup, hemat baterai', '#0d1217', ['#232f3b', '#34d399']],
+    ['hijau', 'Hijau Pesantren', 'Datar, hijau dan krem', '#f4f1e8', ['#ffffff', '#15803d']]
+  ];
+  var META = { kaca: '#0f766e', samsung: '#f2f3f5', gelap: '#0d1217', hijau: '#15803d' };
+
+  function get() { try { return localStorage.getItem('sapa_tema') || 'kaca'; } catch (e) { return 'kaca'; } }
+  function apply(t) {
+    if (!META[t]) t = 'kaca';
+    var h = document.documentElement;
+    if (t === 'kaca') h.removeAttribute('data-tema'); else h.setAttribute('data-tema', t);
+    var m = document.querySelector('meta[name=theme-color]'); if (m) m.setAttribute('content', META[t]);
+  }
+  function set(t) {
+    try { localStorage.setItem('sapa_tema', t); } catch (e) {}
+    var h = document.documentElement; h.classList.add('tema-anim'); apply(t);
+    clearTimeout(set._t); set._t = setTimeout(function () { h.classList.remove('tema-anim'); }, 600);
+  }
+  function close() { var r = document.getElementById('tm-root'); if (r) r.remove(); }
+  function open() {
+    close();
+    var cur = get(), r = document.createElement('div'); r.id = 'tm-root';
+    r.innerHTML = '<div class="tm-scrim" data-tm="x"></div><div class="tm-sheet"><h3>Tema tampilan</h3><p>Pilihan hanya berlaku di perangkat ini.</p>' +
+      TEMAS.map(function (t) {
+        return '<button class="tm-opt' + (t[0] === cur ? ' on' : '') + '" data-tm="' + t[0] + '"><span class="tm-sw" style="background:' + t[3] + '"><i style="background:' + t[4][0] + '"></i><i style="background:' + t[4][1] + '"></i></span>' +
+          '<div><b>' + t[1] + '</b><span>' + t[2] + '</span></div>' + (t[0] === cur ? '<em class="tm-ck" style="font-style:normal">✓</em>' : '') + '</button>';
+      }).join('') + '</div>';
+    r.addEventListener('click', function (e) {
+      var el = e.target.closest('[data-tm]'); if (!el) return;
+      if (el.dataset.tm !== 'x') set(el.dataset.tm);
+      close();
+    });
+    document.body.appendChild(r);
+  }
+  apply(get());
+  window.SapaTema = { open: open, set: set, get: get };
+})();
+
+</script>
+<script>
+/* Gerak SAPA Pesantren — transisi lembut ala iPhone (index.html, kiosk.html).
+ * Halaman lama memudar sambil bergeser, halaman baru masuk dengan kurva iOS; hanya transform & opacity.
+ * Mati otomatis jika perangkat memilih "kurangi gerakan". */
+(function () {
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var IOS = 'cubic-bezier(.32,.72,0,1)', SPRING = 'cubic-bezier(.34,1.45,.5,1)';
+  var css = [
+    'html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}',
+    ':root{--ease:' + IOS + ';--spring:' + SPRING + '}',
+    'button,.btn,.mini,.chip,[data-act]{transition:transform .45s var(--spring),opacity .3s ease,background-color .3s ease,color .3s ease,box-shadow .35s ease,border-color .3s ease}',
+    'button:active,.btn:active,.mini:active,.chip:active,.glass[data-act]:active{transform:scale(.955);transition-duration:.1s,.1s,.2s,.2s,.2s,.2s}',
+    '.sheet{animation:up .55s var(--ease) both!important;will-change:transform}',
+    '.scrim{animation:g-fade .4s ease both}',
+    '@keyframes g-fade{from{opacity:0}to{opacity:1}}',
+    '@keyframes up{from{transform:translate(-50%,100%)}to{transform:translate(-50%,0)}}',
+    '#toast{transition:transform .6s var(--spring),opacity .35s ease;opacity:0}#toast.show{opacity:1}',
+    '.tm-sheet{animation:tmup .55s var(--ease) both!important}.tm-scrim{animation:g-fade .4s ease both}',
+    '.glass,.sheet,#abody>*{will-change:auto}',
+    'html.tema-anim *,html.tema-anim *::before,html.tema-anim *::after{transition:background-color .5s ease,color .5s ease,border-color .5s ease,box-shadow .5s ease!important}',
+    '@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}html{scroll-behavior:auto}}'
+  ].join('\n');
+  var st = document.createElement('style'); st.id = 'gerak-css'; st.textContent = css; document.head.appendChild(st);
+  if (reduce || !Element.prototype.animate) return;
+
+  var FIXED = '.tabbar,#savebar,.savebar';
+  function $(s, r) { return (r || document).querySelector(s); }
+  function key() {
+    try { return typeof S === 'undefined' ? '' : [S.view, S.otab, S.ptab, S.lihat ? 1 : 0].join('|'); } catch (e) { return ''; }
+  }
+  function tabIdx() {
+    var bs = document.querySelectorAll('.tabbar button'), i;
+    for (i = 0; i < bs.length; i++) if (bs[i].classList.contains('on')) return i;
+    return -1;
+  }
+  function ghostOf(el) {
+    if (el.querySelectorAll('*').length > 1400) return null;
+    var r = el.getBoundingClientRect(), cs = getComputedStyle(el), g = el.cloneNode(true), i, n;
+    g.removeAttribute('id');
+    n = g.querySelectorAll('[id]'); for (i = 0; i < n.length; i++) n[i].removeAttribute('id');
+    n = g.querySelectorAll(FIXED); for (i = 0; i < n.length; i++) n[i].remove();
+    g.setAttribute('aria-hidden', 'true'); g.setAttribute('inert', '');
+    g.style.cssText = 'position:absolute;margin:0;pointer-events:none;z-index:5;overflow:hidden;box-sizing:border-box;left:' + (r.left + scrollX) + 'px;top:' + (r.top + scrollY) + 'px;width:' + r.width + 'px;height:' + r.height + 'px;padding:' + cs.padding + ';color:' + cs.color + ';font:' + cs.font;
+    document.body.appendChild(g); return g;
+  }
+  function out(g, dir) {
+    if (!g) return;
+    var a = g.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateX(' + (-dir * 22) + 'px) scale(.99)' }], { duration: 260, easing: 'ease-out', fill: 'forwards' });
+    a.onfinish = a.oncancel = function () { g.remove(); }; setTimeout(function () { g.remove(); }, 700);
+  }
+  function enter(el, dir, soft) {
+    var kids = el.children, i, k, from;
+    from = soft ? { opacity: 0, transform: 'translateY(8px)' } : { opacity: 0, transform: dir ? 'translateX(' + (dir * 34) + 'px)' : 'translateY(18px) scale(.985)' };
+    for (i = 0; i < kids.length; i++) {
+      k = kids[i];
+      if (k.matches(FIXED) || k.id === 'savebar') continue;
+      k.animate([from, { opacity: 1, transform: 'none' }], { duration: soft ? 380 : 520, easing: IOS, delay: soft ? 0 : Math.min(i, 4) * 30, fill: 'backwards' });
+    }
+  }
+  var last = null;
+  /* ganti isi region secara sinkron, dengan animasi halus bila halaman berpindah / data tiba */
+  function smooth(el, fn, page) {
+    var k = page ? key() : '', i0 = page ? tabIdx() : -1;
+    var pindah = page && last !== null && k !== last;
+    var hadSk = !!$('.sk', el);
+    var g = (pindah || hadSk) ? ghostOf(el) : null;
+    fn();
+    if (page) last = k;
+    var tiba = hadSk && !$('.sk', el);
+    if (pindah) {
+      var i1 = tabIdx(), dir = (i0 >= 0 && i1 >= 0 && i1 !== i0) ? (i1 > i0 ? 1 : -1) : 0;
+      out(g, dir); enter(el, dir, false);
+      var p = $('.tabbar button.on', el);
+      if (p) p.animate([{ transform: 'scale(.82)' }, { transform: 'none' }], { duration: 500, easing: SPRING });
+    } else if (tiba) { out(g, 0); enter(el, 0, true); }
+    else if (g) g.remove();
+  }
+  var desc = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML');
+  function hookApp(app) {
+    Object.defineProperty(app, 'innerHTML', { configurable: true, get: function () { return desc.get.call(app); },
+      set: function (v) { smooth(app, function () { desc.set.call(app, v); }, true); } });
+  }
+  /* sheet: tutup dengan meluncur turun */
+  function hookSheet(root) {
+    Object.defineProperty(root, 'innerHTML', { configurable: true, get: function () { return desc.get.call(root); },
+      set: function (v) {
+        var sh = $('.sheet', root), sc = $('.scrim', root), gs = null, gc = null;
+        if (!v && sh) { gs = ghostFixed(sh); gc = sc ? ghostFixed(sc) : null; }
+        desc.set.call(root, v);
+        if (gs) { var a = gs.animate([{ transform: 'translate(-50%,0)' }, { transform: 'translate(-50%,105%)' }], { duration: 380, easing: IOS, fill: 'forwards' }); a.onfinish = function () { gs.remove(); }; setTimeout(function () { gs.remove(); }, 800); }
+        if (gc) { var b = gc.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: 'forwards' }); b.onfinish = function () { gc.remove(); }; setTimeout(function () { gc.remove(); }, 800); }
+      } });
+  }
+  function ghostFixed(el) { var g = el.cloneNode(true); g.removeAttribute('id'); g.style.pointerEvents = 'none'; g.setAttribute('inert', ''); g.style.animation = 'none'; document.body.appendChild(g); return g; }
+  /* bungkus fungsi global yang mengisi area isi (skeleton -> data) */
+  function wrapBody(name, sel) {
+    var f = window[name]; if (typeof f !== 'function' || f._g) return;
+    var w = function () { var el = $(sel), self = this, a = arguments; if (!el) return f.apply(self, a); var r; smooth(el, function () { r = f.apply(self, a); }, false); return r; };
+    w._g = 1; window[name] = w;
+  }
+  function init() {
+    var app = $('#app'), sr = $('#sheet-root'); if (!app) return;
+    last = key(); hookApp(app); if (sr) hookSheet(sr);
+    wrapBody('renderAdminBody', '#abody'); wrapBody('renderRekapBody', '#rkbody');
+    var rc = window.refreshCard;
+    if (typeof rc === 'function' && !rc._g) {
+      var w = function (nis) { var r = rc.apply(this, arguments), e = document.getElementById('c-' + nis);
+        if (e) e.animate([{ transform: 'scale(.975)', opacity: .7 }, { transform: 'none', opacity: 1 }], { duration: 420, easing: SPRING }); return r; };
+      w._g = 1; window.refreshCard = w;
+    }
+    enter(app, 0, false);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+
+</script>
+<style>
+:root{--ink:#0b1b2b;--muted:#5d6d7e;--teal:#0f766e}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;min-height:100vh;color:var(--ink);background:#e6f4f1;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer}
+.muted{color:var(--muted)}
+.scene{position:fixed;inset:0;z-index:-1;overflow:hidden;background:linear-gradient(160deg,#dcf7ec 0%,#e2eeff 55%,#fdf2d6 100%)}
+.blob{position:absolute;border-radius:50%;filter:blur(55px);opacity:.8;animation:float 16s ease-in-out infinite}
+.b1{width:320px;height:320px;background:#34d399;top:-90px;left:-100px}
+.b2{width:290px;height:290px;background:#60a5fa;top:32%;right:-110px;animation-delay:-6s}
+.b3{width:270px;height:270px;background:#fbbf24;bottom:-100px;left:12%;animation-delay:-10s;opacity:.55}
+@keyframes float{50%{transform:translate(26px,-34px) scale(1.1)}}
+.glass{background:linear-gradient(135deg,rgba(255,255,255,.62),rgba(255,255,255,.38));-webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%);border:1px solid rgba(255,255,255,.75);border-radius:28px;box-shadow:0 12px 32px rgba(20,60,90,.12),inset 0 1px 1px rgba(255,255,255,.95),inset 0 -1px 1px rgba(255,255,255,.35)}
+.glass-sm{border-radius:22px}
+.wrap{max-width:560px;margin:0 auto;padding:calc(14px + env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom))}
+.p{padding:18px}.mt{margin-top:12px}
+.sec{font-size:13px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.field{width:100%;border-radius:16px;border:1px solid rgba(255,255,255,.85);background:rgba(255,255,255,.7);padding:14px 16px;font-size:16px;color:var(--ink);outline:none;font-family:inherit}
+.btn{border:0;border-radius:18px;padding:15px 20px;font-weight:700;font-size:16px;color:#fff;width:100%;background:linear-gradient(135deg,#10b981,#0d9488);box-shadow:0 10px 22px rgba(13,148,136,.35)}
+.btn:active{transform:scale(.97)}.btn[disabled]{opacity:.5}
+.btn.red{background:linear-gradient(135deg,#ff6259,#e8281d);box-shadow:0 10px 22px rgba(232,40,29,.3)}
+.btn.ghost{background:rgba(255,255,255,.65);color:var(--ink);box-shadow:none}
+.mini{border:0;border-radius:14px;padding:9px 14px;font-weight:700;font-size:13px;color:var(--teal);background:rgba(16,185,129,.15)}
+.iconbtn{border:0;min-width:42px;height:42px;padding:0 12px;border-radius:15px;background:rgba(255,255,255,.65);color:var(--ink);font-size:15px;font-weight:700;display:inline-grid;place-items:center}
+.chip{border:1px solid rgba(255,255,255,.8);background:rgba(255,255,255,.5);border-radius:999px;padding:9px 16px;font-weight:600;font-size:14px;color:#2b3d4f;white-space:nowrap;flex:none}
+.chip.on{background:var(--teal);color:#fff;border-color:transparent}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:4px;padding:4px;background:rgba(110,125,145,.16);border-radius:17px}
+.seg button{border:0;background:transparent;border-radius:13px;padding:12px 2px;font-weight:700;font-size:15px;color:#4b5b6b}
+.seg button.on{background:#fff;color:var(--ink);box-shadow:0 3px 10px rgba(0,0,0,.12)}
+.badge{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:4px 10px}
+.badge.ok{background:rgba(52,199,89,.2);color:#1b7d37}.badge.no{background:rgba(255,159,10,.2);color:#9a5b00}
+.row{display:flex;align-items:center;gap:12px;padding:12px 4px;border-top:1px solid rgba(110,125,145,.15)}
+.row:first-of-type{border-top:0}
+.avatar{width:44px;height:44px;border-radius:16px;display:grid;place-items:center;font-weight:800;color:#fff;flex:none;background:linear-gradient(145deg,#34d399,#0f766e)}
+.cam{position:relative;border-radius:32px;overflow:hidden;background:#0b1b2b;aspect-ratio:3/4;max-height:64vh;margin:0 auto;border:1px solid rgba(255,255,255,.8);box-shadow:0 14px 36px rgba(20,60,90,.25)}
+.cam video{width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+.cam .ring{position:absolute;inset:12% 16%;border:3px dashed rgba(255,255,255,.7);border-radius:50%;pointer-events:none}
+.cam .hint{position:absolute;left:12px;right:12px;top:12px;text-align:center;color:#fff;font-weight:700;padding:9px 12px;border-radius:16px;background:rgba(10,20,30,.45);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.result{position:absolute;left:12px;right:12px;bottom:12px;padding:14px;border-radius:24px;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.88);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);animation:pop .25s cubic-bezier(.2,.9,.3,1)}
+.result.ok{background:rgba(214,247,224,.92)}.result.info{background:rgba(222,236,255,.92)}.result.err{background:rgba(255,226,223,.94)}
+@keyframes pop{from{transform:translateY(24px);opacity:0}}
+.stat{display:flex;align-items:baseline;gap:8px}.stat b{font-size:34px;letter-spacing:-.03em}
+.bar{height:10px;border-radius:99px;background:rgba(110,125,145,.18);overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#34d399,#0d9488);transition:width .4s}
+#toast{position:fixed;top:calc(12px + env(safe-area-inset-top));left:50%;transform:translate(-50%,-140%);z-index:60;max-width:92vw;padding:12px 18px;border-radius:20px;font-weight:600;font-size:14px;color:#fff;background:rgba(18,30,42,.88);transition:transform .35s cubic-bezier(.2,.9,.3,1);text-align:center}
+#toast.show{transform:translate(-50%,0)}#toast.err{background:rgba(200,35,25,.93)}#toast.warn{background:rgba(190,115,0,.95)}
+.cons{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.4}
+.cons input{width:22px;height:22px;margin-top:1px;flex:none}
+.cam .ring.scan{border:3px solid #ffcc00}.cam .ring.ok{border:3px solid #34c759;box-shadow:0 0 30px rgba(52,199,89,.7)}
+</style>
+</head>
+<body>
+<div class="scene"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i></div>
+<div id="toast"></div>
+<main id="app"></main>
+
+<script>
+const CFG = window.SAPA_CONFIG || {};
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const pad = n => String(n).padStart(2,'0');
+const todayStr = () => { const d = new Date(); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); };
+const initials = n => String(n||'?').split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+const WAKTU = (() => { try { const a = JSON.parse(localStorage.getItem('kiosk_sesi') || 'null'); if (Array.isArray(a) && a.length) return a; } catch(e){} return ['Subuh','Dzuhur','Ashar','Maghrib','Isya']; })();
+const SESI_KELAS = (() => { try { const a = JSON.parse(localStorage.getItem('kiosk_sesik') || 'null'); if (Array.isArray(a) && a.length) return a; } catch(e){} return []; })();
+const defaultWaktu = () => { const h = new Date().getHours(); return h<10?'Subuh':h<15?'Dzuhur':h<18?'Ashar':h<19?'Maghrib':'Isya'; };
+const store = { get(k){ try{return JSON.parse(localStorage.getItem(k));}catch(e){return null;} }, set(k,v){ try{localStorage.setItem(k,JSON.stringify(v));}catch(e){} }, del(k){ try{localStorage.removeItem(k);}catch(e){} } };
+
+const MATCH_DISTANCE = 0.5;   // makin kecil makin ketat (0.6 = bawaan face-api)
+const CONFIRM_FRAMES = 3;     // wajah harus cocok di N frame berturut-turut
+const MIN_FACE_RATIO = 0.22;
+const MIN_MARGIN = 0.04;     // jarak ke kandidat terbaik harus lebih kecil dari kandidat ke-2 (santri berbeda) minimal sekian
+const MAX_LIST = 50;         // batas baris daftar pada layar pendaftaran (gunakan pencarian)
+const LIVE_TIMEOUT = 9000;  // batas waktu tantangan wajah hidup (ms)
+const YAW_DELTA = 0.10;     // seberapa jauh kepala harus menoleh (rasio hidung terhadap lebar rahang)
+const EAR_RATIO = 0.70;     // mata dianggap tertutup jika < 70% bukaan awal  // lebar wajah minimal terhadap lebar video (santri harus cukup dekat)
+
+const K = { view:'login', pin:null, roster:[], kelasList:[], jenis:'kelas', waktu:defaultWaktu(), kelas:'', stream:null, running:false, busy:false, matcher:null, q:'', mirip:0, byNis:{}, scanned:{}, streak:null, unk:0, enrolNis:null, lastScans:[], sesiK:(JSON.parse(localStorage.getItem('kiosk_sesik')||'[]')[0]||''), modelsReady:false, dKelas:'', live:(store.get('kiosk_live')!==false), phase:'id', chal:null, cNis:null, cStart:0, base:[], hold:0, vOk:0, vStart:0, cfail:0 };
+
+/* ---------- API ---------- */
+async function post(body){
+  if (!CFG.API_URL) throw new Error('API_URL belum diisi di bagian ISI DI SINI (atas file)');
+  let res; try { res = await fetch(CFG.API_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(Object.assign({pin:K.pin}, body)) }); }
+  catch(e){ const er = new Error('Tidak ada koneksi internet'); er.offline = true; throw er; }
+  let j; try { j = await res.json(); } catch(e){ throw new Error('Respon server tidak valid'); }
+  if (!j.ok) throw new Error(j.error || 'Terjadi kesalahan'); return j.data;
+}
+const outbox = { get:()=>store.get('kiosk_outbox')||[], set:v=>store.set('kiosk_outbox',v) };
+async function flush(){ if(!navigator.onLine||!K.pin) return; const q = outbox.get(); if(!q.length) return; const rest = []; let n = 0;
+  for (const b of q){ try { await post(b); n++; } catch(e){ if (e.offline) rest.push(b); } }
+  outbox.set(rest); if (n) toast('✓ '+n+' absen offline terkirim'); }
+let tt; function toast(m,t){ const e=$('#toast'); e.className='show '+(t||''); e.textContent=m; clearTimeout(tt); tt=setTimeout(()=>e.className='',3400); }
+
+/* ---------- Pustaka wajah ---------- */
+function loadScript(src){ return new Promise((ok,no)=>{ const s=document.createElement('script'); s.src=src; s.onload=ok; s.onerror=()=>no(new Error('Gagal memuat pustaka wajah (cek internet / FACE_LIB_URL)')); document.head.appendChild(s); }); }
+async function ensureModels(setMsg){
+  if (K.modelsReady) return;
+  // Utama: URL di bagian ISI DI SINI (atas file). Cadangan: GitHub Pages milik pustaka ini.
+  const libs = [CFG.FACE_LIB_URL, 'https://vladmandic.github.io/face-api/dist/face-api.js'].filter(Boolean);
+  const mods = [CFG.FACE_MODEL_URL, 'https://vladmandic.github.io/face-api/model/'].filter(Boolean);
+  if (!window.faceapi) {
+    setMsg('Memuat pustaka wajah…');
+    let err = null;
+    for (const u of libs) { try { await loadScript(u); err = null; break; } catch(e){ err = e; } }
+    if (err || !window.faceapi) throw err || new Error('Pustaka wajah tidak termuat');
+  }
+  setMsg('Memuat model pengenal wajah (±7 MB, sekali saja)…');
+  let last = null;
+  for (const u of mods) {
+    try {
+      await faceapi.nets.tinyFaceDetector.loadFromUri(u);
+      await faceapi.nets.faceLandmark68Net.loadFromUri(u);
+      await faceapi.nets.faceRecognitionNet.loadFromUri(u);
+      K.modelsReady = true; return;
+    } catch(e){ last = e; }
+  }
+  throw new Error('Gagal memuat model wajah (cek internet / FACE_MODEL_URL)');
+}
+const detOpts = () => new faceapi.TinyFaceDetectorOptions({ inputSize:320, scoreThreshold:0.5 });
+async function startCam(){
+  stopCam();
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) throw new Error('Kamera butuh alamat HTTPS dan browser terbaru');
+  K.stream = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:'user', width:{ideal:640}, height:{ideal:480} }, audio:false });
+  const v = $('#cam'); v.srcObject = K.stream; await v.play();
+}
+function stopCam(){ K.running = false; if (K.stream) { K.stream.getTracks().forEach(t=>t.stop()); K.stream = null; } }
+function beep(ok){ try { const c = new (window.AudioContext||window.webkitAudioContext)(), o = c.createOscillator(), g = c.createGain(); o.connect(g); g.connect(c.destination); o.frequency.value = ok?880:300; g.gain.value = .15; o.start(); o.stop(c.currentTime + (ok?.15:.3)); } catch(e){} }
+
+/* ---------- Tampilan ---------- */
+const head = (title, back) => `<div class="glass p" style="display:flex;align-items:center;gap:12px">${back?`<button class="iconbtn" data-act="${back}">‹</button>`:''}<div style="flex:1"><div class="muted" style="font-size:13px;font-weight:600">Kios Absen Wajah</div><div style="font-weight:800;font-size:22px;letter-spacing:-.02em">${title}</div></div></div>`;
+
+function render(){
+  stopCamIfLeaving();
+  const a = $('#app');
+  if (K.view==='login') a.innerHTML = viewLogin();
+  else if (K.view==='menu') a.innerHTML = viewMenu();
+  else if (K.view==='daftar') a.innerHTML = viewDaftar();
+  else if (K.view==='capture') { a.innerHTML = viewCapture(); startCapture(); }
+  else if (K.view==='scan') { a.innerHTML = viewScan(); startScan(); }
+}
+let lastView = null;
+function stopCamIfLeaving(){ if (lastView && lastView!==K.view) stopCam(); lastView = K.view; }
+
+function viewLogin(){
+  return `<div class="wrap" style="padding-top:8vh"><div style="text-align:center;margin-bottom:20px"><div style="font-size:54px">📷</div>
+    <h1 style="font-size:30px;font-weight:800;letter-spacing:-.02em;margin:8px 0 2px">Kios Absen Wajah</h1><p class="muted" style="margin:0">SAPA Pesantren · login pengurus</p></div>
+    <form id="f-login" class="glass p"><label class="muted" style="font-size:13px;font-weight:600">PIN Pengurus</label>
+    <input class="field" id="pin" type="password" inputmode="numeric" placeholder="••••••" required style="margin:6px 0 16px"><button class="btn" type="submit">Masuk</button></form>
+    ${CFG.API_URL ? '' : '<p style="text-align:center;color:#b3190f;font-weight:600;margin-top:14px">API_URL belum diisi di bagian ISI DI SINI (atas file)</p>'}
+    <p style="text-align:center;margin-top:16px"><button class="mini" data-act="tema">🎨 Tema</button></p><p style="text-align:center;margin-top:10px"><a href="index.html" class="muted" style="font-size:13px">‹ kembali ke aplikasi</a></p></div>`;
+}
+function viewMenu(){
+  const sholat = K.jenis==='sholat';
+  const nTerdaftar = K.roster.filter(s=>s.terdaftar).length;
+  return `<div class="wrap">${head('Menu Kios')}
+    <div class="glass p mt"><div class="sec">Mulai Absen</div>
+      <div class="seg"><button data-act="jenis" data-k="kelas" class="${!sholat?'on':''}">Kelas</button><button data-act="jenis" data-k="sholat" class="${sholat?'on':''}">Sholat</button></div>
+      ${!sholat && SESI_KELAS.length>1 ? `<div class="chips" style="margin-top:10px">${SESI_KELAS.map(w=>`<button class="chip ${w===K.sesiK?'on':''}" data-act="sesik" data-k="${esc(w)}">${esc(w)}</button>`).join('')}</div>` : ''}
+      ${sholat?`<div class="chips" style="margin-top:10px">${WAKTU.map(w=>`<button class="chip ${w===K.waktu?'on':''}" data-act="waktu" data-k="${w}">${w}</button>`).join('')}</div>`:''}
+      <div class="chips" style="margin-top:10px"><button class="chip ${K.kelas===''?'on':''}" data-act="kelas" data-k="">Semua kelas</button>${K.kelasList.map(k=>`<button class="chip ${K.kelas===k?'on':''}" data-act="kelas" data-k="${esc(k)}">${esc(k)}</button>`).join('')}</div>
+      <label class="cons" style="margin-top:14px"><input type="checkbox" data-act="live" ${K.live?'checked':''}><span><b>Deteksi wajah hidup</b> — santri diminta menutup mata atau menoleh sebentar (lebih aman dari foto, +1–3 detik)</span></label>
+      <button class="btn" style="margin-top:12px" data-act="mulai">Mulai Kios</button></div>
+    <div class="glass p mt"><div class="sec">Pendaftaran Wajah</div>
+      <div class="stat"><b>${nTerdaftar}</b><span class="muted">dari ${K.roster.length} santri sudah terdaftar</span></div>
+      <div class="bar" style="margin:8px 0 14px"><i style="width:${K.roster.length?100*nTerdaftar/K.roster.length:0}%"></i></div>
+      <button class="btn ghost" data-act="toDaftar">Daftarkan / Perbarui Wajah</button></div>
+    <p style="text-align:center;margin-top:14px"><button class="mini" data-act="tema">🎨 Tema</button> <button class="mini" data-act="logout">Keluar</button> <a class="mini" href="index.html" style="text-decoration:none">Aplikasi</a></p></div>`;
+}
+function daftarRows(){
+  const q = K.q.trim().toLowerCase();
+  const all = K.roster.filter(s => (!K.dKelas || s.kelas===K.dKelas) && (!q || s.nama.toLowerCase().includes(q) || s.nis.includes(q)));
+  const list = all.slice(0, MAX_LIST);
+  return (list.length ? list.map(s=>`<div class="row"><div class="avatar">${esc(initials(s.nama))}</div><div style="flex:1;min-width:0"><div style="font-weight:700">${esc(s.nama)}</div><div class="muted" style="font-size:12px">${esc(s.kelas)} · NIS ${esc(s.nis)}</div></div>
+      <span class="badge ${s.terdaftar?'ok':'no'}">${s.terdaftar?'Terdaftar':'Belum'}</span><button class="mini" data-act="daftarkan" data-nis="${esc(s.nis)}">${s.terdaftar?'Ulang':'Foto'}</button></div>`).join('') : '<div class="muted" style="text-align:center;padding:20px">Tidak ada santri.</div>')
+    + (all.length > list.length ? `<div class="muted" style="text-align:center;font-size:12px;padding:10px">Menampilkan ${list.length} dari ${all.length}. Pilih kelas atau ketik nama/NIS untuk mempersempit.</div>` : '');
+}
+function viewDaftar(){
+  return `<div class="wrap">${head('Daftarkan Wajah','toMenu')}
+    <div class="chips mt"><button class="chip ${K.dKelas===''?'on':''}" data-act="dk" data-k="">Semua</button>${K.kelasList.map(k=>`<button class="chip ${K.dKelas===k?'on':''}" data-act="dk" data-k="${esc(k)}">${esc(k)}</button>`).join('')}</div>
+    <input id="q-daftar" class="field" placeholder="Cari nama / NIS (hanya untuk pendaftaran)" value="${esc(K.q)}" autocomplete="off" style="margin-bottom:10px">
+    <div class="glass p" id="dl">${daftarRows()}</div></div>`;
+}
+function viewCapture(){
+  const s = K.byNis[K.enrolNis];
+  return `<div class="wrap">${head('Foto Wajah','toDaftar')}
+    <div class="glass p mt" style="text-align:center"><div style="font-weight:800;font-size:18px">${esc(s.nama)}</div><div class="muted" style="font-size:13px">${esc(s.kelas)} · NIS ${esc(s.nis)}</div></div>
+    <div class="cam mt"><video id="cam" playsinline muted></video><div class="ring" id="ring"></div><div class="hint" id="hint">Menyiapkan kamera…</div></div>
+    <div class="glass p mt"><label class="cons"><input type="checkbox" id="cons"><span>Wali santri telah memberi <b>persetujuan tertulis</b> untuk pendaftaran wajah anaknya.</span></label>
+    <button class="btn" id="btn-cap" style="margin-top:14px" data-act="ambil" disabled>Ambil 3 Sampel</button>
+    ${s.terdaftar?'<button class="btn red" style="margin-top:10px" data-act="hapusWajah">Hapus Data Wajah</button>':''}</div></div>`;
+}
+function viewScan(){
+  const sesi = K.jenis==='sholat' ? 'Sholat '+K.waktu : 'Kelas'+(SESI_KELAS.length>1?' · '+K.sesiK:'');
+  return `<div class="wrap">${head('Absen '+sesi,'toMenu')}
+    <div class="glass p mt" style="display:flex;align-items:center;gap:14px"><div class="stat" style="flex:1"><b id="cnt">0</b><span class="muted" id="cnt-t">hadir</span></div>
+      <button class="mini" data-act="tutup">Tutup Absensi</button></div>
+    <div class="cam mt"><video id="cam" playsinline muted></video><div class="ring" id="ring"></div><div class="hint" id="hint">Menyiapkan kamera…</div><div id="res"></div></div>
+    <div class="chips mt" id="recent"></div></div>`;
+}
+const setHint = t => { const h = $('#hint'); if (h) h.textContent = t; };
+
+/* ---------- Pendaftaran ---------- */
+async function startCapture(){
+  const btn = $('#btn-cap'), cons = $('#cons');
+  try {
+    await ensureModels(setHint); await startCam();
+    setHint('Hadapkan wajah santri ke kamera');
+    const sync = () => { btn.disabled = !cons.checked; }; cons.addEventListener('change', sync); sync();
+  } catch(e){ setHint(e.message); toast(e.message,'err'); }
+}
+async function ambilSampel(){
+  const btn = $('#btn-cap'); btn.disabled = true;
+  const steps = ['Hadap lurus ke kamera','Tengok sedikit ke kiri','Tengok sedikit ke kanan'], hasil = [];
+  for (let i=0;i<steps.length;i++){
+    let got = null;
+    for (let t=0;t<12 && !got;t++){
+      setHint('Sampel '+(i+1)+'/3 — '+steps[i]); await sleep(t?350:1400);
+      const r = await faceapi.detectSingleFace($('#cam'), detOpts()).withFaceLandmarks().withFaceDescriptor();
+      if (r && r.detection.box.width/$('#cam').videoWidth > MIN_FACE_RATIO) got = Array.from(r.descriptor).map(x=>Math.round(x*1e4)/1e4);
+      else setHint('Wajah belum terlihat jelas — dekatkan & hadap kamera');
+    }
+    if (!got) { setHint('Gagal mengambil sampel. Coba lagi.'); btn.disabled = false; return; }
+    hasil.push(got);
+  }
+  setHint('Menyimpan…');
+  try {
+    await post({ action:'wajahDaftar', nis:K.enrolNis, descriptors:hasil });
+    K.byNis[K.enrolNis].terdaftar = true; K.byNis[K.enrolNis].d = hasil; idb.put(K.enrolNis, { d:hasil }).catch(()=>{});
+    toast('✓ Wajah '+K.byNis[K.enrolNis].nama+' terdaftar'); K.matcher = null; K.view = 'daftar'; render();
+  } catch(e){ toast(e.message,'err'); setHint('Gagal menyimpan'); btn.disabled = false; }
+}
+
+/* ---------- Kios scan ---------- */
+/* Pencocokan wajah dilakukan di perangkat atas SEMUA santri terdaftar — santri tidak perlu memilih/mengetik nama.
+   Jarak = rata-rata jarak Euclid ke tiap sampel; kandidat diterima bila < MATCH_DISTANCE dan
+   unggul dari santri lain minimal MIN_MARGIN (mencegah salah kenal pada wajah mirip). */
+function buildMatcher(){
+  const pool = K.roster.filter(s => s.terdaftar && s.d && s.d.length && (!K.kelas || s.kelas===K.kelas))
+    .map(s => ({ nis:s.nis, d:s.d.map(a => Float32Array.from(a)) }));
+  if (!pool.length) return null;
+  const dist = (a, b) => { let t = 0; for (let i=0;i<128;i++){ const x = a[i]-b[i]; t += x*x; } return Math.sqrt(t); };
+  return { size:pool.length, findBestMatch(desc){
+    let b1 = 9, n1 = null, b2 = 9;
+    for (const p of pool) {
+      let m = 0; for (const d of p.d) m += dist(desc, d); m /= p.d.length;
+      if (m < b1) { b2 = b1; b1 = m; n1 = p.nis; } else if (m < b2) b2 = m;
+    }
+    if (n1 && b1 < MATCH_DISTANCE) return (b2 - b1 >= MIN_MARGIN) ? { label:n1, distance:b1 } : { label:'unknown', mirip:true, distance:b1 };
+    return { label:'unknown', distance:b1 };
+  } };
+}
+async function startScan(){
+  try {
+    await ensureModels(setHint);
+    K.matcher = buildMatcher();
+    if (!K.matcher) { setHint('Belum ada wajah terdaftar untuk pilihan ini'); toast('Daftarkan wajah santri dulu','warn'); return; }
+    await startCam();
+    K.scanned = {}; K.lastScans = []; K.phase = 'id'; K.streak = null; K.unk = 0; K.busy = false; K.running = true; updateCount();
+    setHint('Hadapkan wajah ke kamera'); loop();
+  } catch(e){ setHint(e.message); toast(e.message,'err'); }
+}
+function targetNis(){ return K.roster.filter(s=>!K.kelas || s.kelas===K.kelas).length; }
+function updateCount(){ const c = $('#cnt'); if (c) { c.textContent = Object.keys(K.scanned).length; $('#cnt-t').textContent = 'hadir dari '+targetNis()+' santri'; }
+  const r = $('#recent'); if (r) r.innerHTML = K.lastScans.slice(0,6).map(n=>`<span class="chip on">${esc(n)}</span>`).join(''); }
+const biggest = a => a.sort((x,y)=>y.detection.box.width-x.detection.box.width)[0];
+const setRing = c => { const r = $('#ring'); if (r) r.className = 'ring ' + (c||''); };
+function earOf(p){ const d=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y); return (d(p[1],p[5])+d(p[2],p[4]))/(2*d(p[0],p[3])); }
+function resetFlow(msg){ K.phase='id'; K.streak=null; K.chal=null; K.cNis=null; K.base=[]; K.hold=0; K.vOk=0; K.unk=0; setRing(''); setHint(msg||'Hadapkan wajah ke kamera'); }
+/* Deteksi wajah hidup: setelah wajah dikenali, santri diminta satu gerakan acak (pejam / noleh),
+   lalu menghadap lurus lagi dan identitasnya diverifikasi ulang. Foto diam akan gagal. */
+function startChallenge(nis){
+  K.phase='challenge'; K.cNis=nis; K.chal=Math.random()<.5?'pejam':'noleh'; K.cStart=Date.now(); K.base=[]; K.hold=0; K.cfail=0;
+  setRing('scan'); setHint(K.chal==='pejam' ? 'Pejamkan mata sebentar' : 'Tengok ke kiri atau kanan sedikit');
+}
+function challengeStep(f){
+  const lm=f.landmarks, P=lm.positions;
+  const val = K.chal==='pejam' ? (earOf(lm.getLeftEye())+earOf(lm.getRightEye()))/2 : (P[30].x-P[0].x)/(P[16].x-P[0].x);
+  if (K.base.length < 2) { K.base.push(val); return false; }
+  const ok = K.chal==='pejam' ? val < Math.max.apply(null,K.base)*EAR_RATIO : Math.abs(val-(K.base[0]+K.base[1])/2) > YAW_DELTA;
+  K.hold = ok ? K.hold+1 : 0;
+  return K.hold >= 2;
+}
+async function loop(){
+  if (!K.running) return;
+  const v = $('#cam');
+  if (v && v.readyState >= 2 && !K.busy) {
+    try {
+      if (K.phase === 'challenge') {
+        const all = await faceapi.detectAllFaces(v, detOpts()).withFaceLandmarks();
+        if (!K.running) return;
+        const f = biggest(all);
+        if (Date.now()-K.cStart > LIVE_TIMEOUT) resetFlow('Waktu habis — ulangi, hadap kamera');
+        else if (!f) { if (++K.cfail > 8) resetFlow(); }
+        else { K.cfail = 0; if (challengeStep(f)) { K.phase='verify'; K.vOk=0; K.vStart=Date.now(); setRing('ok'); setHint('Bagus! Hadap lurus ke kamera'); } }
+      } else {
+        const all = await faceapi.detectAllFaces(v, detOpts()).withFaceLandmarks().withFaceDescriptors();
+        if (!K.running) return;
+        const big = biggest(all);
+        if (!big) {
+          if (K.phase==='verify') { if (Date.now()-K.vStart > 6000) resetFlow('Waktu habis — ulangi'); }
+          else { K.streak = null; K.unk = 0; setHint('Hadapkan wajah ke kamera'); }
+        } else if (big.detection.box.width / v.videoWidth < MIN_FACE_RATIO) {
+          if (K.phase==='id') K.streak = null; setHint('Dekatkan wajah ke kamera');
+        } else {
+          const m = K.matcher.findBestMatch(big.descriptor);
+          if (K.phase === 'verify') {
+            if (m.label === K.cNis) { if (++K.vOk >= 2) await konfirmasi(K.cNis); }
+            else if (Date.now()-K.vStart > 6000) resetFlow('Wajah tidak cocok — ulangi');
+          } else if (m.label !== 'unknown') {
+            K.unk = 0;
+            K.streak = (K.streak && K.streak.nis === m.label) ? { nis:m.label, n:K.streak.n+1 } : { nis:m.label, n:1 };
+            if (K.streak.n >= CONFIRM_FRAMES) { if (K.live && !K.scanned[m.label]) startChallenge(m.label); else await konfirmasi(m.label); }
+            else setHint('Mengenali…');
+          } else { K.streak = null; K.unk++; setHint(K.unk >= 10 ? (m.mirip ? 'Wajah mirip santri lain — dekatkan & hadap lurus' : 'Wajah belum terdaftar — hubungi ustadz') : 'Mengenali…'); }
+        }
+      }
+    } catch(e){ /* lewati frame bermasalah */ }
+  }
+  setTimeout(loop, 150);
+}
+function showResult(s, teks, tipe){
+  const r = $('#res'); if (!r) return;
+  r.innerHTML = `<div class="result ${tipe}"><div class="avatar">${esc(initials(s.nama))}</div><div style="flex:1;min-width:0"><div style="font-weight:800;font-size:18px">${esc(s.nama)}</div><div class="muted" style="font-size:13px">${esc(s.kelas)}</div></div><div style="font-weight:800;font-size:16px">${esc(teks)}</div></div>`;
+  setTimeout(()=>{ if (r) r.innerHTML=''; }, 2200);
+}
+async function konfirmasi(nis){
+  K.busy = true; const s = K.byNis[nis];
+  if (K.scanned[nis]) { showResult(s, 'Sudah absen ✓', 'info'); beep(true); await sleep(2200); }
+  else {
+    const body = { action:'absenWajah', nis, tanggal:todayStr(), jenis:K.jenis, waktu:K.waktu, sesi:K.sesiK };
+    try { const r = await post(body); K.scanned[nis] = r.status; K.lastScans.unshift(s.nama); showResult(s, r.sudah ? 'Tercatat: '+r.status : (K.jenis==='sholat'?'Berjamaah ✓':'Hadir ✓'), 'ok'); beep(true); }
+    catch(e){
+      if (e.offline) { outbox.set(outbox.get().concat([body])); K.scanned[nis] = 'offline'; K.lastScans.unshift(s.nama); showResult(s, 'Hadir ✓ (offline)', 'ok'); beep(true); }
+      else { showResult(s, e.message, 'err'); beep(false); }
+    }
+    updateCount(); await sleep(2200);
+  }
+  K.phase='id'; K.chal=null; K.cNis=null; K.vOk=0; K.streak=null; K.base=[]; setRing(''); setHint('Hadapkan wajah ke kamera'); K.busy = false;
+}
+async function tutupAbsensi(){
+  const sesi = K.jenis==='sholat' ? 'sholat '+K.waktu : 'kelas'+(SESI_KELAS.length>1?' '+K.sesiK:'');
+  const cakupan = K.kelas || 'SEMUA kelas';
+  if (!confirm('Tutup absensi '+sesi+' ('+cakupan+')?\n\nSantri yang belum tercatat (termasuk yang belum Izin/Sakit diinput) akan otomatis ditandai ALFA.')) return;
+  try { const r = await post({ action:'tutupAbsensi', tanggal:todayStr(), jenis:K.jenis, waktu:K.waktu, sesi:K.sesiK, kelas:K.kelas }); toast(r.alfa ? r.alfa+' santri ditandai Alfa' : 'Semua santri sudah tercatat ✓', r.alfa?'warn':''); }
+  catch(e){ toast(e.message,'err'); }
+}
+
+/* ---------- Aksi ---------- */
+/* Cache ciri wajah di perangkat (IndexedDB): ribuan santri tidak diunduh ulang tiap pembukaan.
+   Server hanya mengirim ciri wajah yang berubah sejak sinkron terakhir. */
+const idb = {
+  db:null,
+  open(){ return this.db ? Promise.resolve(this.db) : new Promise((ok,no)=>{ const r = indexedDB.open('sapa_kiosk',1); r.onupgradeneeded = () => r.result.createObjectStore('wajah'); r.onsuccess = () => { this.db = r.result; ok(r.result); }; r.onerror = () => no(r.error); }); },
+  async tx(mode, fn){ const db = await this.open(); return new Promise((ok,no)=>{ const t = db.transaction('wajah', mode), st = t.objectStore('wajah'); const out = fn(st); t.oncomplete = () => ok(out && out.result !== undefined ? out.result : out); t.onerror = () => no(t.error); }); },
+  all(){ return this.tx('readonly', st => { const o = {}; const r = st.openCursor(); r.onsuccess = () => { const c = r.result; if (c) { o[c.key] = c.value; c.continue(); } }; return o; }); },
+  put(nis, v){ return this.tx('readwrite', st => st.put(v, nis)); },
+  del(nis){ return this.tx('readwrite', st => st.delete(nis)); },
+  clear(){ return this.tx('readwrite', st => st.clear()); }
+};
+async function loadRoster(){
+  let cache = {}, since = localStorage.getItem('kiosk_sync') || '';
+  try { cache = await idb.all(); } catch(e){ cache = {}; since = ''; }
+  if (!Object.keys(cache).length) since = '';
+  let data = await post({ action:'wajahSinkron', sejak:since });
+  const ids = new Set(data.santri.filter(x=>x.terdaftar).map(x=>x.nis));
+  const merge = async d => {
+    for (const nis of Object.keys(d)) { cache[nis] = { d:d[nis] }; try { await idb.put(nis, cache[nis]); } catch(e){} }
+    for (const nis of Object.keys(cache)) if (!ids.has(nis)) { delete cache[nis]; try { await idb.del(nis); } catch(e){} }
+  };
+  await merge(data.d);
+  if ([...ids].some(n => !cache[n])) {            // ada yang belum lengkap → sinkron penuh satu kali
+    try { await idb.clear(); } catch(e){} cache = {};
+    data = await post({ action:'wajahSinkron', sejak:'' }); await merge(data.d);
+  }
+  localStorage.setItem('kiosk_sync', data.waktu);
+  if (Array.isArray(data.sesi) && data.sesi.length) { WAKTU.length = 0; data.sesi.forEach(w => WAKTU.push(w)); localStorage.setItem('kiosk_sesi', JSON.stringify(data.sesi)); if (!WAKTU.includes(K.waktu)) K.waktu = WAKTU.includes(defaultWaktu()) ? defaultWaktu() : WAKTU[0]; }
+  if (Array.isArray(data.sesiKelas)) { SESI_KELAS.length = 0; data.sesiKelas.forEach(x => SESI_KELAS.push(x[0])); localStorage.setItem('kiosk_sesik', JSON.stringify(SESI_KELAS)); if (!SESI_KELAS.includes(K.sesiK)) K.sesiK = SESI_KELAS[0] || ''; }
+  K.roster = data.santri.map(x => ({ nis:x.nis, nama:x.nama, kelas:x.kelas, terdaftar:x.terdaftar && !!cache[x.nis], d:(cache[x.nis]||{}).d || [] }));
+  K.byNis = {}; K.roster.forEach(s=>K.byNis[s.nis]=s);
+  K.kelasList = Array.from(new Set(K.roster.map(s=>s.kelas).filter(Boolean))).sort((a,b)=>a.localeCompare(b,'id',{numeric:true}));
+}
+const ACT = {
+  tema(){ if (window.SapaTema) SapaTema.open(); },
+  live(d, el){ K.live = el.checked; store.set('kiosk_live', K.live); },
+  jenis(d){ K.jenis = d.k; render(); }, waktu(d){ K.waktu = d.k; render(); }, sesik(d){ K.sesiK = d.k; render(); }, kelas(d){ K.kelas = d.k; render(); },
+  dk(d){ K.dKelas = d.k; render(); },
+  toMenu(){ K.view = 'menu'; render(); }, toDaftar(){ K.view = 'daftar'; render(); },
+  async mulai(){ K.view = 'scan'; render(); },
+  daftarkan(d){ K.enrolNis = d.nis; K.view = 'capture'; render(); },
+  ambil: ambilSampel, tutup: tutupAbsensi,
+  async hapusWajah(){ if (!confirm('Hapus data wajah santri ini?')) return; try { await post({ action:'wajahHapus', nis:K.enrolNis }); K.byNis[K.enrolNis].terdaftar = false; K.byNis[K.enrolNis].d = []; idb.del(K.enrolNis).catch(()=>{}); toast('Data wajah dihapus'); K.view = 'daftar'; render(); } catch(e){ toast(e.message,'err'); } },
+  logout(){ store.del('kiosk_pin'); localStorage.removeItem('kiosk_sync'); idb.clear().catch(()=>{}); stopCam(); K.pin = null; K.view = 'login'; render(); }
+};
+document.addEventListener('click', e => { const el = e.target.closest('[data-act]'); if (el && ACT[el.dataset.act]) ACT[el.dataset.act](el.dataset, el); });
+document.addEventListener('input', e => { if (e.target.id === 'q-daftar') { K.q = e.target.value; const d = $('#dl'); if (d) d.innerHTML = daftarRows(); } });
+document.addEventListener('submit', async e => {
+  e.preventDefault(); if (e.target.id !== 'f-login') return;
+  const b = e.target.querySelector('button'); b.disabled = true; b.textContent = 'Memproses…';
+  try { K.pin = $('#pin').value.trim(); await post({ action:'adminLogin' }); store.set('kiosk_pin', K.pin); await loadRoster(); K.view = 'menu'; render(); flush(); }
+  catch(err){ toast(err.message,'err'); b.disabled = false; b.textContent = 'Masuk'; }
+});
+window.addEventListener('online', flush);
+document.addEventListener('visibilitychange', () => { if (document.hidden && K.view==='scan') { stopCam(); K.view = 'menu'; render(); } });
+
+(async function boot(){
+  const pin = store.get('kiosk_pin');
+  if (pin && CFG.API_URL) { K.pin = pin; try { await post({ action:'adminLogin' }); await loadRoster(); K.view = 'menu'; } catch(e){ K.view = 'login'; } }
+  render();
+})();
+</script>
+</body>
+</html>
