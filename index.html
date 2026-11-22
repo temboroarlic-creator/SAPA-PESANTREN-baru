@@ -1475,7 +1475,7 @@ ICON.izin = '<path d="M5 4h14v16H5zM9 9h6M9 13h6M9 17h3"/>';
 
 const LN = { sub:null, loading:false, d:{}, f:{}, kelas:'', santri:[], nis:'', jenis:'Prestasi', izinF:'Menunggu', usrKelas:[], usrEdit:null, dari:'', sampai:'' };
 const adm = () => S.me || { role:'admin', kelas:[] };
-const isAdm = () => adm().role === 'admin';
+const isAdm = () => adm().role !== 'ustadz';   // tanpa info peran (backend lama) = pengurus utama
 const A_ = (action, ex) => postApi(Object.assign({ action, pin:S.pin }, ex || {}));
 const lnv = k => esc(LN.f[k] || '');
 function lnKeep(){ document.querySelectorAll('[data-lnf]').forEach(e => { LN.f[e.dataset.lnf] = e.value; }); }
