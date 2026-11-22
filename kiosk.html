@@ -103,6 +103,20 @@ html[data-tema] .result.err{background:rgba(255,59,48,.25)}
 .tm-ck{margin-left:auto;font-weight:800;color:var(--teal,#0f766e)}
 
 </style>
+<style id="layar-css">
+/* ===== Tata letak responsif kios ===== */
+@media (min-width:700px){
+  .wrap{max-width:680px}
+  .cam{max-height:68vh}
+}
+@media (min-width:960px){
+  .wrap.k-scan{max-width:1180px;display:grid;grid-template-columns:minmax(0,1.7fr) minmax(300px,1fr);gap:16px;align-items:start;padding-top:24px}
+  .wrap.k-scan > *{margin:0!important}
+  .wrap.k-scan > .cam{grid-column:1;grid-row:1 / span 4;aspect-ratio:4/3;max-height:84vh;width:100%}
+  .wrap.k-scan > :not(.cam){grid-column:2}
+  .wrap.k-scan > .chips{flex-wrap:wrap;overflow:visible}
+}
+</style>
 <script>
 /* Tema SAPA Pesantren — pemilih & penyimpan tema (dipakai index.html & kiosk.html).
  * Pilihan disimpan di perangkat masing-masing (localStorage). */
@@ -148,7 +162,6 @@ html[data-tema] .result.err{background:rgba(255,59,48,.25)}
 })();
 
 </script>
-
 <style>
 :root{--ink:#0b1b2b;--muted:#5d6d7e;--teal:#0f766e}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -351,7 +364,7 @@ function viewCapture(){
 }
 function viewScan(){
   const sesi = K.jenis==='sholat' ? 'Sholat '+K.waktu : 'Kelas'+(SESI_KELAS.length>1?' · '+K.sesiK:'');
-  return `<div class="wrap">${head('Absen '+sesi,'toMenu')}
+  return `<div class="wrap k-scan">${head('Absen '+sesi,'toMenu')}
     <div class="glass p mt" style="display:flex;align-items:center;gap:14px"><div class="stat" style="flex:1"><b id="cnt">0</b><span class="muted" id="cnt-t">hadir</span></div>
       <button class="mini" data-act="tutup">Tutup Absensi</button></div>
     <div class="cam mt"><video id="cam" playsinline muted></video><div class="ring" id="ring"></div><div class="hint" id="hint">Menyiapkan kamera…</div><div id="res"></div></div>
@@ -487,6 +500,7 @@ async function konfirmasi(nis){
   K.busy = true; const s = K.byNis[nis];
   if (K.scanned[nis]) { showResult(s, 'Sudah absen ✓', 'info'); beep(true); await sleep(900); }
   else {
+    if (SESI_KELAS.length && !SESI_KELAS.includes(K.sesiK)) K.sesiK = SESI_KELAS[0];
     const body = { action:'absenWajah', nis, tanggal:todayStr(), jenis:K.jenis, waktu:K.waktu, sesi:K.sesiK };
     try { const r = await post(body); K.scanned[nis] = r.status; K.lastScans.unshift(s.nama); showResult(s, r.sudah ? 'Tercatat: '+r.status : (K.jenis==='sholat'?'Berjamaah ✓':'Hadir ✓'), 'ok'); beep(true); }
     catch(e){
