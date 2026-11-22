@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="utf-8">
+<link rel="manifest" href="manifest-kiosk.json">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Kios Absen Wajah · SAPA Pesantren</title>
 <meta name="theme-color" content="#0f766e">
@@ -429,7 +430,7 @@ function resetFlow(msg){ K.phase='id'; K.streak=null; K.chal=null; K.cNis=null; 
    lalu menghadap lurus lagi dan identitasnya diverifikasi ulang. Foto diam akan gagal. */
 function startChallenge(nis){
   K.phase='challenge'; K.cNis=nis; K.chal=Math.random()<.5?'pejam':'noleh'; K.cStart=Date.now(); K.base=[]; K.hold=0; K.cfail=0;
-  setRing('scan'); setHint(K.chal==='pejam' ? 'Pejamkan mata sebentar' : 'Tengok ke kiri atau kanan sedikit');
+  setRing('scan'); setHint('');
 }
 function challengeStep(f){
   const lm=f.landmarks, P=lm.positions;
@@ -567,5 +568,6 @@ document.addEventListener('visibilitychange', () => { if (document.hidden && K.v
   render();
 })();
 </script>
-<div style="position:fixed;left:6px;bottom:2px;font-size:10px;opacity:.45;z-index:1;pointer-events:none">kios v3</div></body>
+<div style="position:fixed;left:6px;bottom:2px;font-size:10px;opacity:.45;z-index:1;pointer-events:none">kios v4</div><script>if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register('sw.js').catch(function(){});</script>
+</body>
 </html>
