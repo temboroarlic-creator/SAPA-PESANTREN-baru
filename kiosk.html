@@ -147,122 +147,7 @@ html[data-tema] .result.err{background:rgba(255,59,48,.25)}
 })();
 
 </script>
-<script>
-/* Gerak SAPA Pesantren — transisi lembut ala iPhone (index.html, kiosk.html).
- * Halaman lama memudar sambil bergeser, halaman baru masuk dengan kurva iOS; hanya transform & opacity.
- * Mati otomatis jika perangkat memilih "kurangi gerakan". */
-(function () {
-  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var IOS = 'cubic-bezier(.32,.72,0,1)', SPRING = 'cubic-bezier(.34,1.45,.5,1)';
-  var css = [
-    'html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}',
-    ':root{--ease:' + IOS + ';--spring:' + SPRING + '}',
-    'button,.btn,.mini,.chip,[data-act]{transition:transform .45s var(--spring),opacity .3s ease,background-color .3s ease,color .3s ease,box-shadow .35s ease,border-color .3s ease}',
-    'button:active,.btn:active,.mini:active,.chip:active,.glass[data-act]:active{transform:scale(.955);transition-duration:.1s,.1s,.2s,.2s,.2s,.2s}',
-    '.sheet{animation:up .55s var(--ease) both!important;will-change:transform}',
-    '.scrim{animation:g-fade .4s ease both}',
-    '@keyframes g-fade{from{opacity:0}to{opacity:1}}',
-    '@keyframes up{from{transform:translate(-50%,100%)}to{transform:translate(-50%,0)}}',
-    '#toast{transition:transform .6s var(--spring),opacity .35s ease;opacity:0}#toast.show{opacity:1}',
-    '.tm-sheet{animation:tmup .55s var(--ease) both!important}.tm-scrim{animation:g-fade .4s ease both}',
-    '.glass,.sheet,#abody>*{will-change:auto}',
-    'html.tema-anim *,html.tema-anim *::before,html.tema-anim *::after{transition:background-color .5s ease,color .5s ease,border-color .5s ease,box-shadow .5s ease!important}',
-    '@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}html{scroll-behavior:auto}}'
-  ].join('\n');
-  var st = document.createElement('style'); st.id = 'gerak-css'; st.textContent = css; document.head.appendChild(st);
-  if (reduce || !Element.prototype.animate) return;
 
-  var FIXED = '.tabbar,#savebar,.savebar';
-  function $(s, r) { return (r || document).querySelector(s); }
-  function key() {
-    try { return typeof S === 'undefined' ? '' : [S.view, S.otab, S.ptab, S.lihat ? 1 : 0].join('|'); } catch (e) { return ''; }
-  }
-  function tabIdx() {
-    var bs = document.querySelectorAll('.tabbar button'), i;
-    for (i = 0; i < bs.length; i++) if (bs[i].classList.contains('on')) return i;
-    return -1;
-  }
-  function ghostOf(el) {
-    if (el.querySelectorAll('*').length > 1400) return null;
-    var r = el.getBoundingClientRect(), cs = getComputedStyle(el), g = el.cloneNode(true), i, n;
-    g.removeAttribute('id');
-    n = g.querySelectorAll('[id]'); for (i = 0; i < n.length; i++) n[i].removeAttribute('id');
-    n = g.querySelectorAll(FIXED); for (i = 0; i < n.length; i++) n[i].remove();
-    g.setAttribute('aria-hidden', 'true'); g.setAttribute('inert', '');
-    g.style.cssText = 'position:absolute;margin:0;pointer-events:none;z-index:5;overflow:hidden;box-sizing:border-box;left:' + (r.left + scrollX) + 'px;top:' + (r.top + scrollY) + 'px;width:' + r.width + 'px;height:' + r.height + 'px;padding:' + cs.padding + ';color:' + cs.color + ';font:' + cs.font;
-    document.body.appendChild(g); return g;
-  }
-  function out(g, dir) {
-    if (!g) return;
-    var a = g.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateX(' + (-dir * 22) + 'px) scale(.99)' }], { duration: 260, easing: 'ease-out', fill: 'forwards' });
-    a.onfinish = a.oncancel = function () { g.remove(); }; setTimeout(function () { g.remove(); }, 700);
-  }
-  function enter(el, dir, soft) {
-    var kids = el.children, i, k, from;
-    from = soft ? { opacity: 0, transform: 'translateY(8px)' } : { opacity: 0, transform: dir ? 'translateX(' + (dir * 34) + 'px)' : 'translateY(18px) scale(.985)' };
-    for (i = 0; i < kids.length; i++) {
-      k = kids[i];
-      if (k.matches(FIXED) || k.id === 'savebar') continue;
-      k.animate([from, { opacity: 1, transform: 'none' }], { duration: soft ? 380 : 520, easing: IOS, delay: soft ? 0 : Math.min(i, 4) * 30, fill: 'backwards' });
-    }
-  }
-  var last = null;
-  /* ganti isi region secara sinkron, dengan animasi halus bila halaman berpindah / data tiba */
-  function smooth(el, fn, page) {
-    var k = page ? key() : '', i0 = page ? tabIdx() : -1;
-    var pindah = page && last !== null && k !== last;
-    var hadSk = !!$('.sk', el);
-    var g = (pindah || hadSk) ? ghostOf(el) : null;
-    fn();
-    if (page) last = k;
-    var tiba = hadSk && !$('.sk', el);
-    if (pindah) {
-      var i1 = tabIdx(), dir = (i0 >= 0 && i1 >= 0 && i1 !== i0) ? (i1 > i0 ? 1 : -1) : 0;
-      out(g, dir); enter(el, dir, false);
-      var p = $('.tabbar button.on', el);
-      if (p) p.animate([{ transform: 'scale(.82)' }, { transform: 'none' }], { duration: 500, easing: SPRING });
-    } else if (tiba) { out(g, 0); enter(el, 0, true); }
-    else if (g) g.remove();
-  }
-  var desc = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML');
-  function hookApp(app) {
-    Object.defineProperty(app, 'innerHTML', { configurable: true, get: function () { return desc.get.call(app); },
-      set: function (v) { smooth(app, function () { desc.set.call(app, v); }, true); } });
-  }
-  /* sheet: tutup dengan meluncur turun */
-  function hookSheet(root) {
-    Object.defineProperty(root, 'innerHTML', { configurable: true, get: function () { return desc.get.call(root); },
-      set: function (v) {
-        var sh = $('.sheet', root), sc = $('.scrim', root), gs = null, gc = null;
-        if (!v && sh) { gs = ghostFixed(sh); gc = sc ? ghostFixed(sc) : null; }
-        desc.set.call(root, v);
-        if (gs) { var a = gs.animate([{ transform: 'translate(-50%,0)' }, { transform: 'translate(-50%,105%)' }], { duration: 380, easing: IOS, fill: 'forwards' }); a.onfinish = function () { gs.remove(); }; setTimeout(function () { gs.remove(); }, 800); }
-        if (gc) { var b = gc.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: 'forwards' }); b.onfinish = function () { gc.remove(); }; setTimeout(function () { gc.remove(); }, 800); }
-      } });
-  }
-  function ghostFixed(el) { var g = el.cloneNode(true); g.removeAttribute('id'); g.style.pointerEvents = 'none'; g.setAttribute('inert', ''); g.style.animation = 'none'; document.body.appendChild(g); return g; }
-  /* bungkus fungsi global yang mengisi area isi (skeleton -> data) */
-  function wrapBody(name, sel) {
-    var f = window[name]; if (typeof f !== 'function' || f._g) return;
-    var w = function () { var el = $(sel), self = this, a = arguments; if (!el) return f.apply(self, a); var r; smooth(el, function () { r = f.apply(self, a); }, false); return r; };
-    w._g = 1; window[name] = w;
-  }
-  function init() {
-    var app = $('#app'), sr = $('#sheet-root'); if (!app) return;
-    last = key(); hookApp(app); if (sr) hookSheet(sr);
-    wrapBody('renderAdminBody', '#abody'); wrapBody('renderRekapBody', '#rkbody');
-    var rc = window.refreshCard;
-    if (typeof rc === 'function' && !rc._g) {
-      var w = function (nis) { var r = rc.apply(this, arguments), e = document.getElementById('c-' + nis);
-        if (e) e.animate([{ transform: 'scale(.975)', opacity: .7 }, { transform: 'none', opacity: 1 }], { duration: 420, easing: SPRING }); return r; };
-      w._g = 1; window.refreshCard = w;
-    }
-    enter(app, 0, false);
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
-})();
-
-</script>
 <style>
 :root{--ink:#0b1b2b;--muted:#5d6d7e;--teal:#0f766e}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -270,6 +155,8 @@ body{margin:0;min-height:100vh;color:var(--ink);background:#e6f4f1;font-family:-
 button{font-family:inherit;cursor:pointer}
 .muted{color:var(--muted)}
 .scene{position:fixed;inset:0;z-index:-1;overflow:hidden;background:linear-gradient(160deg,#dcf7ec 0%,#e2eeff 55%,#fdf2d6 100%)}
+html.kam .blob{display:none!important}
+html.kam .glass,html.kam .alert{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:rgba(255,255,255,.9)!important}
 .blob{position:absolute;border-radius:50%;filter:blur(55px);opacity:.8;animation:float 16s ease-in-out infinite}
 .b1{width:320px;height:320px;background:#34d399;top:-90px;left:-100px}
 .b2{width:290px;height:290px;background:#60a5fa;top:32%;right:-110px;animation-delay:-6s}
@@ -370,6 +257,7 @@ async function ensureModels(setMsg){
     for (const u of libs) { try { await loadScript(u); err = null; break; } catch(e){ err = e; } }
     if (err || !window.faceapi) throw err || new Error('Pustaka wajah tidak termuat');
   }
+  try { await faceapi.tf.setBackend('webgl'); await faceapi.tf.ready(); } catch(e){}
   setMsg('Memuat model pengenal wajah (±7 MB, sekali saja)…');
   let last = null;
   for (const u of mods) {
@@ -377,19 +265,25 @@ async function ensureModels(setMsg){
       await faceapi.nets.tinyFaceDetector.loadFromUri(u);
       await faceapi.nets.faceLandmark68Net.loadFromUri(u);
       await faceapi.nets.faceRecognitionNet.loadFromUri(u);
-      K.modelsReady = true; return;
+      K.modelsReady = true; setMsg('Menyiapkan mesin pengenal…'); await warmUp(); return;
     } catch(e){ last = e; }
   }
   throw new Error('Gagal memuat model wajah (cek internet / FACE_MODEL_URL)');
 }
-const detOpts = () => new faceapi.TinyFaceDetectorOptions({ inputSize:320, scoreThreshold:0.5 });
+/* pemanasan: kompilasi mesin sekali di awal agar pemindaian pertama tidak tersendat */
+async function warmUp(){
+  try { const c = document.createElement('canvas'); c.width = c.height = 160; const x = c.getContext('2d'); x.fillStyle = '#888'; x.fillRect(0,0,160,160);
+    await faceapi.detectSingleFace(c, detOpts()).withFaceLandmarks();
+    await faceapi.nets.faceRecognitionNet.computeFaceDescriptor(c); } catch(e){}
+}
+const detOpts = () => new faceapi.TinyFaceDetectorOptions({ inputSize:224, scoreThreshold:0.5 });
 async function startCam(){
   stopCam();
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) throw new Error('Kamera butuh alamat HTTPS dan browser terbaru');
-  K.stream = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:'user', width:{ideal:640}, height:{ideal:480} }, audio:false });
+  K.stream = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:'user', width:{ideal:480}, height:{ideal:360}, frameRate:{ideal:24} }, audio:false });
   const v = $('#cam'); v.srcObject = K.stream; await v.play();
 }
-function stopCam(){ K.running = false; if (K.stream) { K.stream.getTracks().forEach(t=>t.stop()); K.stream = null; } }
+function stopCam(){ K.running = false; document.documentElement.classList.remove('kam'); if (K.stream) { K.stream.getTracks().forEach(t=>t.stop()); K.stream = null; } }
 function beep(ok){ try { const c = new (window.AudioContext||window.webkitAudioContext)(), o = c.createOscillator(), g = c.createGain(); o.connect(g); g.connect(c.destination); o.frequency.value = ok?880:300; g.gain.value = .15; o.start(); o.stop(c.currentTime + (ok?.15:.3)); } catch(e){} }
 
 /* ---------- Tampilan ---------- */
@@ -521,7 +415,7 @@ async function startScan(){
     K.matcher = buildMatcher();
     if (!K.matcher) { setHint('Belum ada wajah terdaftar untuk pilihan ini'); toast('Daftarkan wajah santri dulu','warn'); return; }
     await startCam();
-    K.scanned = {}; K.lastScans = []; K.phase = 'id'; K.streak = null; K.unk = 0; K.busy = false; K.running = true; updateCount();
+    K.scanned = {}; K.lastScans = []; K.phase = 'id'; K.streak = null; K.unk = 0; K.busy = false; K.running = true; document.documentElement.classList.add('kam'); updateCount();
     setHint('Hadapkan wajah ke kamera'); loop();
   } catch(e){ setHint(e.message); toast(e.message,'err'); }
 }
@@ -582,7 +476,7 @@ async function loop(){
       }
     } catch(e){ /* lewati frame bermasalah */ }
   }
-  setTimeout(loop, 150);
+  setTimeout(loop, 40);
 }
 function showResult(s, teks, tipe){
   const r = $('#res'); if (!r) return;
