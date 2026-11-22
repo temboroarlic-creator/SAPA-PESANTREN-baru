@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="utf-8">
+<link rel="manifest" href="manifest.json">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>SAPA Pesantren</title>
 <meta name="theme-color" content="#0f766e">
@@ -1485,5 +1486,6 @@ async function demoPost(b){
   flushOutbox();
 })();
 </script>
+<script>if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register('sw.js').catch(function(){});</script>
 </body>
 </html>
