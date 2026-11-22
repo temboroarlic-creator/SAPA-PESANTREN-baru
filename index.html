@@ -225,6 +225,56 @@ html[data-tema] .result.err{background:rgba(255,59,48,.25)}
 .tm-ck{margin-left:auto;font-weight:800;color:var(--teal,#0f766e)}
 
 </style>
+<style id="layar-css">
+/* ===== Tata letak responsif: HP (bawaan) · tablet · desktop ===== */
+/* Tablet (≥ 640px) */
+@media (min-width:640px){
+  .wrap{max-width:780px;padding-left:24px;padding-right:24px}
+  .wrap.w-login{max-width:460px}
+  .tabbar{width:min(92vw,520px)}
+  .tabbar button{padding:10px 0 9px;font-size:12px}
+  .sheet{width:min(100vw,600px)}
+  .tm-sheet{width:min(100vw,600px)}
+  /* daftar santri: 2 kolom */
+  #abody{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+  #abody > *{margin-top:0!important}
+  #abody > .glass-sm:first-child,#abody > :only-child{grid-column:1/-1}
+  #abody > .sk{height:96px}
+  /* dashboard orang tua: kartu berdampingan */
+  .pane{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start;margin-top:12px}
+  .pane > *{margin:0!important}
+  .pane > .alert,.pane > .sk{grid-column:1/-1}
+  .pane > .sk{height:110px}
+  .savebar{width:min(92vw,460px)}
+  .card{padding:16px}
+}
+/* Desktop (≥ 1024px): menu jadi bilah samping, isi lebih lebar */
+@media (min-width:1024px){
+  .wrap{max-width:1180px;padding-top:28px}
+  .wrap.has-rail{padding-left:128px;padding-right:32px}
+  .wrap.w-ortu{max-width:1060px}
+  .wrap.w-mid{max-width:900px}
+  .tabbar{left:24px;top:50%;bottom:auto;transform:translateY(-50%);width:84px;flex-direction:column;gap:6px;padding:8px;border-radius:30px}
+  .tabbar button{padding:13px 0 11px;border-radius:22px;font-size:12px;gap:4px}
+  .tabbar button:hover{background:rgba(255,255,255,.55)}
+  html[data-tema] .tabbar button:hover{background:var(--soft)}
+  #abody{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .pane{gap:14px}
+  .savebar{left:calc(50% + 64px);bottom:calc(24px + env(safe-area-inset-bottom));width:min(60vw,460px)}
+  .btn,.mini,.chip,.iconbtn,.seg button{cursor:pointer}
+  .glass.card:hover,.rkrow:hover{transform:translateY(-1px)}
+  .sheet,.tm-sheet{left:50%;top:50%;bottom:auto;border-radius:32px;width:min(92vw,560px);max-height:88vh;overflow:auto;animation:g-dialog .45s cubic-bezier(.32,.72,0,1) both!important}
+  .tm-sheet{width:min(92vw,520px)}
+  @keyframes g-dialog{from{opacity:0;transform:translate(-50%,-46%) scale(.96)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+  .sheet{transform:translate(-50%,-50%)}
+  .tm-sheet{transform:translate(-50%,-50%)}
+}
+/* Layar sangat lebar (≥ 1440px) */
+@media (min-width:1440px){
+  .wrap{max-width:1320px}
+  #abody{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+</style>
 <script>
 /* Tema SAPA Pesantren — pemilih & penyimpan tema (dipakai index.html & kiosk.html).
  * Pilihan disimpan di perangkat masing-masing (localStorage). */
@@ -359,7 +409,7 @@ html[data-tema] .result.err{background:rgba(255,59,48,.25)}
         var sh = $('.sheet', root), sc = $('.scrim', root), gs = null, gc = null;
         if (!v && sh) { gs = ghostFixed(sh); gc = sc ? ghostFixed(sc) : null; }
         desc.set.call(root, v);
-        if (gs) { var a = gs.animate([{ transform: 'translate(-50%,0)' }, { transform: 'translate(-50%,105%)' }], { duration: 380, easing: IOS, fill: 'forwards' }); a.onfinish = function () { gs.remove(); }; setTimeout(function () { gs.remove(); }, 800); }
+        if (gs) { var desk = matchMedia('(min-width:1024px)').matches; var a = gs.animate(desk ? [{ opacity: 1, transform: 'translate(-50%,-50%)' }, { opacity: 0, transform: 'translate(-50%,-47%) scale(.96)' }] : [{ transform: 'translate(-50%,0)' }, { transform: 'translate(-50%,105%)' }], { duration: desk ? 260 : 380, easing: IOS, fill: 'forwards' }); a.onfinish = function () { gs.remove(); }; setTimeout(function () { gs.remove(); }, 800); }
         if (gc) { var b = gc.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: 'forwards' }); b.onfinish = function () { gc.remove(); }; setTimeout(function () { gc.remove(); }, 800); }
       } });
   }
@@ -525,7 +575,7 @@ function demoBanner(){ return DEMO ? '<div class="alert demo">Mode demo — belu
 
 function viewLogin(){
   const ortu = S.role === 'ortu';
-  return `<div class="wrap" style="padding-top:calc(7vh + env(safe-area-inset-top))">
+  return `<div class="wrap w-login" style="padding-top:calc(7vh + env(safe-area-inset-top))">
     <div style="text-align:center;margin-bottom:22px">
       <div class="logo" style="margin:0 auto">${MOON}</div>
       <h1 style="font-size:32px;font-weight:800;letter-spacing:-.02em;margin:16px 0 2px">SAPA Pesantren</h1>
@@ -575,9 +625,9 @@ function viewOrtu(){
       <div style="font-weight:700">${fmtBulan(bulan)}</div>
       <button class="iconbtn" data-act="bln" data-d="1" ${bulan>=cur?'disabled':''} aria-label="Bulan berikutnya">›</button></div>`;
   let body;
-  if (!d) body = '<div class="sk"></div><div class="sk"></div><div class="sk"></div>';
-  else body = `<div class="${S.loading?'dim':''}">${alfaBanner(d)}${S.ptab==='kelas'?pKelas(d):S.ptab==='sholat'?pSholat(d):pTahfidz(d)}</div>`;
-  return `<div class="wrap">${demoBanner()}${head}${body}</div>${tabbar(S.ptab,'ptab',TABS)}`;
+  if (!d) body = '<div class="pane"><div class="sk"></div><div class="sk"></div><div class="sk"></div></div>';
+  else body = `<div class="pane ${S.loading?'dim':''}">${alfaBanner(d)}${S.ptab==='kelas'?pKelas(d):S.ptab==='sholat'?pSholat(d):pTahfidz(d)}</div>`;
+  return `<div class="wrap has-rail w-ortu">${demoBanner()}${head}${body}</div>${tabbar(S.ptab,'ptab',TABS)}`;
 }
 function alfaBanner(d){
   const a = d.alfa, ket = a.ket !== undefined ? (a.ket ? ' '+a.ket : '') : (a.periode==='SEMUA' ? '' : ' bulan ini');
@@ -642,7 +692,7 @@ const JENIS_LABEL = { kelas:'Absensi Kelas', sholat:'Absensi Sholat', tahfidz:'S
 function viewAdminShell(){
   if (S.otab==='rekap') return viewRekapShell();
   if (S.otab==='pengaturan') return viewPengaturanShell();
-  return `<div class="wrap" style="padding-bottom:190px">${demoBanner()}
+  return `<div class="wrap has-rail" style="padding-bottom:190px">${demoBanner()}
     <div class="glass" style="padding:14px 16px;display:flex;align-items:center;gap:12px">
       <div style="flex:1"><div class="muted" style="font-size:13px;font-weight:600">Panel Pengurus</div><div style="font-weight:800;font-size:22px;letter-spacing:-.02em">${JENIS_LABEL[S.otab]}</div></div>
       <a class="iconbtn" href="kiosk.html" aria-label="Kios absen wajah" title="Kios absen wajah" style="text-decoration:none;font-size:20px">📷</a><button class="iconbtn" data-act="tema" aria-label="Tema tampilan" style="font-size:18px">🎨</button><button class="iconbtn" data-act="logout" aria-label="Keluar">${ico('out',22)}</button></div>
@@ -677,7 +727,8 @@ function cardTahfidz(s){
 function summaryHtml(){
   const cnt = {}; daftarStatus().forEach(([k])=>cnt[k]=0);
   Object.keys(S.marks).forEach(n=>{ const st = S.marks[n].status; if (cnt[st]!==undefined) cnt[st]++; });
-  return daftarStatus().map(([k,c])=>`<div class="stat"><b style="color:var(--t${c})">${cnt[k]}</b><span>${k}</span></div>`).join('');
+  const belum = S.santri.filter(s=>!(S.marks[s.nis]&&S.marks[s.nis].status)).length;
+  return daftarStatus().map(([k,c])=>`<div class="stat"><b style="color:var(--t${c})">${cnt[k]}</b><span>${k}</span></div>`).join('') + `<div class="stat"><b style="color:#8a97a3">${belum}</b><span>Belum</span></div>`;
 }
 function renderAdminBody(){
   const b = $('#abody'), sb = $('#savebar'); if (!b) return;
@@ -690,7 +741,7 @@ function renderAdminBody(){
       <div id="sum" style="display:flex;gap:14px">${summaryHtml()}</div>
       <button class="mini" data-act="all">${S.otab==='kelas'?'Semua Hadir':'Semua Berjamaah'}</button></div>`
     + S.santri.map(cardAbsen).join('');
-  sb.innerHTML = `<div class="savebar"><button class="btn" id="btn-save" style="width:100%" data-act="save" ${S.busy?'disabled':''}>Simpan Absensi · ${S.santri.length} santri</button></div>`;
+  sb.innerHTML = `<div class="savebar"><button class="btn" id="btn-save" style="width:100%" data-act="save" ${S.busy?'disabled':''}>Simpan Absensi · ${S.santri.filter(s=>S.marks[s.nis]&&S.marks[s.nis].status).length} dari ${S.santri.length} santri</button></div>`;
 }
 function refreshCard(nis){ const el = document.getElementById('c-'+nis), s = S.santri.find(x=>x.nis===nis); if (el && s) el.outerHTML = (S.otab==='tahfidz'?cardTahfidz:cardAbsen)(s); }
 function refreshSummary(){ const e = $('#sum'); if (e) e.innerHTML = summaryHtml(); }
@@ -716,14 +767,19 @@ async function loadSantri(){
     S.santri = d.santri; S.saved = d.tersimpan || {}; S.marks = {};
     d.santri.forEach(s => {
       const t = S.saved[s.nis];
-      if (jenis==='kelas') S.marks[s.nis] = { status:(t&&t.status)||'Hadir', catatan:(t&&t.catatan)||'' };
-      else if (jenis==='sholat') S.marks[s.nis] = { status:(t&&t.status)||'Berjamaah' };
+      if (jenis==='kelas') S.marks[s.nis] = { status:(t&&t.status)||'', catatan:(t&&t.catatan)||'' };
+      else if (jenis==='sholat') S.marks[s.nis] = { status:(t&&t.status)||'' };
     });
   } catch(e){
     if (my !== reqId) return;
+    if (/Jam pelajaran/.test(e.message) && !S._pulih) {
+      S._pulih = 1;
+      try { const g = await postApi({ action:'getPengaturan', pin:S.pin }); terapkanPengaturan(g.pengaturan); S.sesiK = SESI_KELAS[0] || ''; } catch(x){}
+      render(); return loadSantri();
+    }
     toast(e.message, 'err'); S.santri = [];
   }
-  S.loading = false; renderAdminBody();
+  S._pulih = 0; S.loading = false; renderAdminBody();
 }
 
 async function submitBody(body){
@@ -738,11 +794,13 @@ async function submitBody(body){
   } finally { S.busy = false; }
 }
 async function saveBatch(){
-  const items = S.santri.map(s => ({ nis:s.nis, status:S.marks[s.nis].status, catatan:S.marks[s.nis].catatan||'' }));
+  const items = S.santri.filter(s => S.marks[s.nis] && S.marks[s.nis].status).map(s => ({ nis:s.nis, status:S.marks[s.nis].status, catatan:S.marks[s.nis].catatan||'' }));
+  if (!items.length) return toast('Belum ada santri yang ditandai','warn');
+  if (S.otab==='kelas' && SESI_KELAS.length && !SESI_KELAS.includes(S.sesiK)) S.sesiK = SESI_KELAS[0];
   const body = S.otab==='kelas'
     ? { action:'simpanKelas', pin:S.pin, tanggal:S.tanggal, sesi:S.sesiK, items }
     : { action:'simpanSholat', pin:S.pin, tanggal:S.tanggal, waktu:S.waktu, items };
-  if (await submitBody(body)) S.santri.forEach(s => { S.saved[s.nis] = true; });
+  if (await submitBody(body)) items.forEach(i => { S.saved[i.nis] = true; });
   renderAdminBody();
 }
 function openSheet(nis){
@@ -793,7 +851,7 @@ function rkKeys(){ return RK.jenis==='kelas' ? STATUS_KELAS : RK.jenis==='sholat
 function viewRekapShell(){
   const P = [['7','7 hari'],['30','30 hari'],['bulan','Bulan ini'],['lalu','Bulan lalu'],['tahun','Tahun ini']];
   const segBtn = (act, items, cur) => `<div class="seg" style="margin-top:8px">${items.map(([k,l])=>`<button data-act="${act}" data-k="${k}" data-c="g" class="${k===cur?'on':''}">${l}</button>`).join('')}</div>`;
-  return `<div class="wrap" style="padding-bottom:120px">${demoBanner()}
+  return `<div class="wrap has-rail" style="padding-bottom:120px">${demoBanner()}
     <div class="glass" style="padding:14px 16px;display:flex;align-items:center;gap:12px">
       <div style="flex:1"><div class="muted" style="font-size:13px;font-weight:600">Panel Pengurus</div><div style="font-weight:800;font-size:22px;letter-spacing:-.02em">Rekap & Grafik</div></div>
       <button class="iconbtn" data-act="tema" aria-label="Tema tampilan" style="font-size:18px">🎨</button><button class="iconbtn" data-act="logout" aria-label="Keluar">${ico('out',22)}</button></div>
@@ -1090,7 +1148,7 @@ function pgStatusBlok(judul, kunci, inti){
 }
 
 function viewPengaturanShell(){
-  const shell = isi => `<div class="wrap" style="padding-bottom:120px">${demoBanner()}
+  const shell = isi => `<div class="wrap has-rail" style="padding-bottom:120px">${demoBanner()}
     <div class="glass" style="padding:14px 16px;display:flex;align-items:center;gap:12px">
       <div style="flex:1"><div class="muted" style="font-size:13px;font-weight:600">Panel Pengurus</div><div style="font-weight:800;font-size:22px;letter-spacing:-.02em">Pengaturan</div></div>
       <button class="iconbtn" data-act="tema" aria-label="Tema" style="font-size:18px">🎨</button><button class="iconbtn" data-act="logout" aria-label="Keluar">${ico('out',22)}</button></div>${isi}</div>${tabbar('pengaturan','otab',ADMIN_TABS)}`;
@@ -1357,7 +1415,7 @@ const ACTIONS = {
   pickKelas(d){ S.kelas = d.k; render(); loadSantri(); },
   pickWaktu(d){ S.waktu = d.k; render(); loadSantri(); },
   pickSesiK(d){ S.sesiK = d.k; render(); loadSantri(); },
-  mark(d){ const m = S.marks[d.nis]; if (!m) return; m.status = d.k; if (d.k==='Hadir' || S.otab==='sholat') m.catatan = ''; refreshCard(d.nis); refreshSummary(); },
+  mark(d){ const m = S.marks[d.nis]; if (!m) return; m.status = (m.status===d.k) ? '' : d.k; if (d.k==='Hadir' || S.otab==='sholat' || !m.status) m.catatan = ''; refreshCard(d.nis); refreshSummary(); },
   all(){ const def = S.otab==='kelas' ? 'Hadir' : 'Berjamaah'; S.santri.forEach(s => { S.marks[s.nis] = { status:def, catatan:'' }; }); renderAdminBody(); },
   save(){ if (!S.busy) saveBatch(); },
   setor(d){ openSheet(d.nis); },
