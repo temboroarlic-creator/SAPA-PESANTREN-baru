@@ -15,7 +15,7 @@
 <script>
 /* ====== ISI DI SINI: URL Apps Script berakhiran /exec ====== */
 window.SAPA_CONFIG = {
-  API_URL: 'https://script.google.com/macros/s/AKfycbyYvSTG4XW7FDeJNzW_FXVItBXdsNU6EOjD5Av-PWRqkVi6z-7j-UVIMvr6BzKxwFqmBw/exec',   // <-- tempel URL /exec di antara tanda kutip
+  API_URL: 'https://script.google.com/macros/s/AKfycbyXT2fxvu1b4uCV49Z4Z0MeyWBLNXu1zHwYYDddZ5v0V5w8BJge4F9qtifF5eQN4Lkdtw/exec',   // <-- tempel URL /exec di antara tanda kutip
   FACE_LIB_URL: 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.13/dist/face-api.js',
   FACE_MODEL_URL: 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.13/model/'
 };
@@ -139,7 +139,8 @@ button{font-family:inherit;cursor:pointer}
 .sk{height:110px;border-radius:26px;margin-top:12px;background:linear-gradient(90deg,rgba(255,255,255,.3),rgba(255,255,255,.7),rgba(255,255,255,.3));background-size:200% 100%;animation:sh 1.2s infinite}
 @keyframes sh{to{background-position:-200% 0}}
 .dim{opacity:.55;pointer-events:none;transition:opacity .2s}
-.empty-s{text-align:center;color:var(--muted);padding:34px 10px;font-weight:600}
+.empty-s{text-align:center;color:var(--muted);padding:34px 10px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:12px}
+.empty-ic{width:56px;height:56px;border-radius:20px;display:grid;place-items:center;background:rgba(255,255,255,.55);box-shadow:inset 0 0 0 1px rgba(255,255,255,.7),0 6px 18px rgba(20,60,50,.08);color:var(--g,#0f9d8a)}
 .bd-g{background:rgba(52,199,89,.17);color:var(--tg)}.bd-b{background:rgba(10,132,255,.15);color:var(--tb)}
 .bd-o{background:rgba(255,159,10,.19);color:var(--to)}.bd-r{background:rgba(255,59,48,.15);color:var(--tr)}
 .dateinp{border:0;background:rgba(255,255,255,.6);border-radius:12px;padding:9px 12px;font-size:16px;font-family:inherit;font-weight:600;color:var(--ink)}
@@ -762,7 +763,9 @@ function viewAdminShell(){
     <div id="savebar"></div>${tabbar(S.otab,'otab',ADMIN_TABS)}`;
 }
 function skeleton(){ return '<div class="sk"></div><div class="sk"></div><div class="sk"></div>'; }
-function emptyState(t){ return `<div class="empty-s">${t}</div>`; }
+const KOSONG_IK = [[/izin/i,'izin'],[/pengumuman/i,'speaker'],[/catatan/i,'catatan'],[/aktivitas/i,'clock'],[/akun|santri/i,'user'],[/kelas/i,'kelas']];
+function emptyState(t, n){ n = n || (KOSONG_IK.find(x=>x[0].test(t))||[0,'note'])[1];
+  return `<div class="empty-s"><span class="empty-ic">${ico(n,26)}</span><div>${t}</div></div>`; }
 const daftarStatus = () => S.otab === 'kelas' ? STATUS_KELAS : STATUS_SHOLAT;
 
 function cardAbsen(s){
@@ -776,6 +779,7 @@ function cardAbsen(s){
 function cardTahfidz(s){
   const sv = S.saved[s.nis];
   return `<div class="glass glass-sm card" id="c-${esc(s.nis)}" style="display:flex;align-items:center;gap:12px">
+    <div class="avatar av-s" data-act="lihatOrtu" data-nis="${esc(s.nis)}" style="cursor:pointer">${esc(initials(s.nama))}</div>
     <div style="flex:1;min-width:0;cursor:pointer" data-act="lihatOrtu" data-nis="${esc(s.nis)}"><div class="nm">${esc(s.nama)} <span class="muted" style="font-size:13px">›</span></div><div class="muted" style="font-size:12px">NIS ${esc(s.nis)} · lihat profil</div>
     ${sv ? `<div style="margin-top:6px"><span class="chip-ok">✓ ${esc(sv.surat_ayat||'Tersimpan')}</span></div>` : ''}</div>
     <button class="mini" data-act="setor" data-nis="${esc(s.nis)}">＋ Setoran</button></div>`;
@@ -1172,6 +1176,22 @@ function terapkanPengaturan(c){
 }
 const pgRedo = () => { if (S.otab==='pengaturan' && S.view==='admin') { const y = window.scrollY; $('#app').innerHTML = viewPengaturanShell(); window.scrollTo(0,y); } };
 const pgSalin = o => JSON.parse(JSON.stringify(o));
+const PG_TPL = {
+  langsung:{ subjek:'Info Kehadiran Hari Ini: {nama} (Alfa)', pesan:"Assalamu'alaikum Bapak/Ibu {nama_ortu},\n\nKami dari {pesantren} menyampaikan bahwa ananda *{nama}* ({kelas}) hari ini ({tanggal}) tercatat *Alfa* pada: {rincian}.\n\nMohon Bapak/Ibu berkenan menghubungi pengurus bila ada keterangan. Jika ananda sakit/berhalangan, orang tua dapat mengajukan izin melalui aplikasi.\n\nJazakumullahu khairan.\n— {pesantren}" },
+  batas:{ subjek:'Peringatan Kehadiran: {nama} (Alfa {total}x)', pesan:"Assalamu'alaikum Bapak/Ibu {nama_ortu},\n\nKami dari {pesantren} menyampaikan bahwa ananda *{nama}* ({kelas}) tercatat *Alfa {total} kali* {periode} (kelas: {alfa_kelas}, sholat: {alfa_sholat}).\n\nMohon Bapak/Ibu berkenan berkomunikasi dengan ananda dan pengurus agar kehadirannya dapat kembali terjaga.\n\nJazakumullahu khairan.\n— {pesantren}" }
+};
+const PG_VAR = { langsung:[['nama_ortu','Nama wali'],['nama','Nama santri'],['kelas','Kelas'],['tanggal','Tanggal'],['rincian','Rincian Alfa'],['pesantren','Nama pesantren']],
+  batas:[['nama_ortu','Nama wali'],['nama','Nama santri'],['kelas','Kelas'],['total','Jumlah Alfa'],['alfa_kelas','Alfa kelas'],['alfa_sholat','Alfa sholat'],['periode','Periode'],['pesantren','Nama pesantren']] };
+const pgTplObj = j => j==='batas' ? (PG.cfg.alfa.pesanBatas = PG.cfg.alfa.pesanBatas || { ...PG_TPL.batas }) : PG.cfg.alfa.langsung;
+function pgTplEditor(j){
+  const o = pgTplObj(j), st = 'padding:9px 12px;font-size:14px';
+  return `<div class="rklbl">Isi pesan (bisa diubah)</div>
+    <input class="field" style="${st}" data-pgtpl="${j}:subjek" maxlength="120" value="${esc(o.subjek||PG_TPL[j].subjek)}" placeholder="Judul email">
+    <textarea class="field" style="${st};margin-top:8px;min-height:190px;line-height:1.5" data-pgtpl="${j}:pesan" maxlength="1500">${esc(o.pesan||PG_TPL[j].pesan)}</textarea>
+    <div class="muted" style="font-size:12px;margin:8px 0 6px">Ketuk untuk menyisipkan data otomatis. Tanda *teks* = huruf tebal.</div>
+    <div class="chips" style="flex-wrap:wrap;overflow:visible">${PG_VAR[j].map(([k,n])=>`<button class="chip" data-act="pgSisip" data-v="{${k}}">${n}</button>`).join('')}</div>
+    <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="mini" data-act="pgTplReset" data-j="${j}">Kembalikan pesan bawaan</button></div>`;
+}
 const pgVal = id => { const e = document.getElementById(id); return e ? e.value.trim() : ''; };
 
 async function pgLoad(){
@@ -1259,7 +1279,9 @@ function viewPengaturanShell(){
       <div class="rkrow"><span style="flex:1;font-weight:600">Dikirim pukul</span><select id="pg-lj" class="rksel">${Array.from({length:24},(_,j)=>j).map(j=>`<option value="${j}" ${A.langsung.jam===j?'selected':''}>${pad(j)}</option>`).join('')}</select><b>:</b><select id="pg-lm" class="rksel">${[0,5,10,15,20,25,30,35,40,45,50,55].map(j=>`<option value="${j}" ${A.langsung.menit===j?'selected':''}>${pad(j)}</option>`).join('')}</select></div>
       <div style="display:flex;gap:8px;margin-top:10px"><button class="chip ${A.langsung.email?'on':''}" data-act="pgLangsung" data-k="email">${ic("mail",15)}Email</button><button class="chip ${A.langsung.wa?'on':''}" data-act="pgLangsung" data-k="wa">${ic("chat",15)}WhatsApp</button></div>
       <div class="muted" style="font-size:12px;margin-top:8px">Waktu kirim dapat meleset ±15 menit (aturan Google). Simpan pengaturan dulu agar jadwal terpasang.</div>
+      ${pgTplEditor('langsung')}
       <div class="rklbl">Uji coba</div>
+      <div class="muted" style="font-size:12px;margin-bottom:8px">Pesan uji memakai isi pesan di atas (tidak perlu disimpan dulu), diisi data contoh.</div>
       <input id="pg-uji-email" class="field" type="email" style="padding:9px 12px" placeholder="Email tujuan uji (kosong = email Anda sendiri)">
       <input id="pg-uji-wa" class="field" type="tel" style="padding:9px 12px;margin-top:8px" placeholder="No. WhatsApp uji (opsional)">
       <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="mini" data-act="pgUji">${ic("mail",15)}Kirim pesan uji</button><button class="mini" data-act="pgKirimSekarang">${ic("play",14)}Kirim Alfa hari ini sekarang</button></div></div>
@@ -1280,7 +1302,8 @@ function viewPengaturanShell(){
       <div class="rklbl">Cara lapor</div>
       <div class="seg"><button data-act="pgMode" data-k="kirim" data-c="g" class="${A.mode==='kirim'?'on':''}">Kirim otomatis ke wali</button><button data-act="pgMode" data-k="dash" data-c="g" class="${A.mode==='dash'?'on':''}">Tampil di dashboard saja</button></div>
       ${A.mode==='kirim'?`<div style="display:flex;gap:8px;margin-top:10px"><button class="chip ${A.email?'on':''}" data-act="pgSaluran" data-k="email">${ic("mail",15)}Email</button><button class="chip ${A.wa?'on':''}" data-act="pgSaluran" data-k="wa">${ic("chat",15)}WhatsApp</button></div>
-      <div class="rkdetail" style="margin-top:12px"><b>Contoh pesan ke wali</b><br>Assalamu'alaikum Bapak/Ibu. Ananda <b>Nama Santri</b> tercatat <b>Alfa ${A.batas} kali</b> ${PG_KET[A.periode]}. Mohon berkenan berkomunikasi dengan ananda dan pengurus.</div>`:`<div class="rkdetail" style="margin-top:12px">Santri yang mencapai batas ditandai merah di dashboard wali & pengurus. Tidak ada pesan yang dikirim.</div>`}
+      ${pgTplEditor('batas')}
+      <div style="margin-top:10px"><button class="mini" data-act="pgUjiBatas">${ic("mail",15)}Kirim contoh pesan ini ke email uji</button></div>`:`<div class="rkdetail" style="margin-top:12px">Santri yang mencapai batas ditandai merah di dashboard wali & pengurus. Tidak ada pesan yang dikirim.</div>`}
       <button class="btn" style="width:100%;margin-top:14px" data-act="pgSimpan">${PG.saving?'Menyimpan…':'Simpan pengaturan'}</button></div></div>`);
 }
 
@@ -1367,6 +1390,8 @@ function pgChange(e){
   else if (t.id==='pg-cadn') { PG.cfg.cadangan.simpan = +t.value; PG.dirty = true; pgRedo(); }
   else if (t.dataset && t.dataset.pgwarna) { const [k,i] = t.dataset.pgwarna.split(':'); PG.cfg[k][+i][1] = t.value; PG.dirty = true; pgRedo(); }
 }
+document.addEventListener('focusin', e => { if (e.target.dataset && e.target.dataset.pgtpl) PG.fokus = e.target; });
+document.addEventListener('input', e => { const t = e.target; if (t.dataset && t.dataset.pgtpl && PG.cfg) { const [j,f] = t.dataset.pgtpl.split(':'); pgTplObj(j)[f] = t.value; PG.dirty = true; } });
 let pgTimer = null;
 document.addEventListener('input', e => { if (e.target.id==='pg-cari') { PG.q = e.target.value; clearTimeout(pgTimer); pgTimer = setTimeout(() => pgCariLoad(false), 350); } });
 
@@ -1467,11 +1492,11 @@ function demoPerSesi(cur){
 
 /* ------------------------------ Fitur tambahan: Lainnya, izin, pengumuman, catatan, cetak, ekspor ------------------------------ */
 (function(){ const st = document.createElement('style'); st.id = 'ln-css';
-  st.textContent = '.lngrp{border-radius:22px;overflow:hidden;margin-top:14px}.lnrow{display:flex;align-items:center;gap:13px;width:100%;padding:13px 16px;border:0;background:transparent;color:var(--ink);font:inherit;text-align:left;cursor:pointer;border-top:1px solid rgba(110,125,145,.16)}.lnrow:first-child{border-top:0}.lnrow:active{background:rgba(110,125,145,.12)}.lnic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-size:19px;flex:none}.lnrow b{display:block;font-size:16px}.lnrow small{display:block;color:var(--mute,#6b7785);font-size:12px;margin-top:1px}.lnbd{background:#ff3b30;color:#fff;border-radius:99px;padding:2px 9px;font-size:12px;font-weight:800}.lnchev{color:#9aa6b2;font-size:20px}.lnitem{padding:12px 2px;border-top:1px solid rgba(110,125,145,.16)}.lnitem:first-child{border-top:0}.lnrow2{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.lnrow2 .dateinp{min-width:0;flex:1 1 0;width:auto;padding-left:8px;padding-right:8px;font-size:14px}.lnsel{width:100%}@media print{body *{visibility:hidden}}';
+  st.textContent = '.lngrp{border-radius:22px;overflow:hidden;margin-top:14px}.lnrow{display:flex;align-items:center;gap:13px;width:100%;padding:13px 16px;border:0;background:transparent;color:var(--ink);font:inherit;text-align:left;cursor:pointer;border-top:1px solid rgba(110,125,145,.16)}.lnrow:first-child{border-top:0}.lnrow:active{background:rgba(110,125,145,.12)}.lnic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-size:19px;flex:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 3px 8px rgba(0,0,0,.12)}.lnrow b{display:block;font-size:16px}.lnrow small{display:block;color:var(--mute,#6b7785);font-size:12px;margin-top:1px}.lnbd{background:#ff3b30;color:#fff;border-radius:99px;padding:2px 9px;font-size:12px;font-weight:800}.lnchev{color:#9aa6b2;font-size:20px}.lnitem{padding:12px 2px;border-top:1px solid rgba(110,125,145,.16)}.lnitem:first-child{border-top:0}.lnrow2{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.lnrow2 .dateinp{min-width:0;flex:1 1 0;width:auto;padding-left:8px;padding-right:8px;font-size:14px}.lnsel{width:100%}@media print{body *{visibility:hidden}}';
   document.head.appendChild(st); })();
 ICON.lainnya = '<circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/>';
-ICON.catatan = '<path d="M7 3h8l4 4v14H7zM15 3v4h4M10 12h6M10 16h6"/>';
-ICON.izin = '<path d="M5 4h14v16H5zM9 9h6M9 13h6M9 17h3"/>';
+ICON.catatan = '<path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L12 17l-5.2 2.8 1-5.9L3.5 9.7l5.9-.8z"/>';
+ICON.izin = '<rect x="4" y="5.5" width="16" height="15" rx="2.6"/><path d="M4 10.5h16M8.5 3.5v4m7-4v4M9.5 15.3l1.9 1.9 3.3-3.6"/>';
 
 const LN = { sub:null, loading:false, d:{}, f:{}, kelas:'', santri:[], nis:'', jenis:'Prestasi', izinF:'Menunggu', usrKelas:[], usrEdit:null, dari:'', sampai:'' };
 const adm = () => S.me || { role:'admin', kelas:[] };
@@ -1483,7 +1508,7 @@ function lnRedo(){ if (S.view==='admin' && S.otab==='lainnya') { const y = windo
 const bulanAwal = () => todayStr().slice(0,8) + '01';
 
 const LN_MENU = [
-  ['Kegiatan', [['izin','note','#34c759','Izin dari Orang Tua','Setujui atau tolak pengajuan izin'],['pengumuman','speaker','#ff9500','Pengumuman','Kabar untuk semua atau satu kelas'],['catatan','star','#af52de','Catatan Santri','Prestasi, perilaku, pelanggaran']]],
+  ['Kegiatan', [['izin','izin','#34c759','Izin dari Orang Tua','Setujui atau tolak pengajuan izin'],['pengumuman','speaker','#ff9500','Pengumuman','Kabar untuk semua atau satu kelas'],['catatan','catatan','#af52de','Catatan Santri','Prestasi, perilaku, pelanggaran']]],
   ['Laporan', [['ekspor','chart','#007aff','Ekspor & Cetak','Unduh Excel/CSV, cetak rapor'],['kode','key','#5ac8fa','Kode Keluarga','Kartu akses untuk orang tua',1]]],
   ['Pengelolaan', [['pengguna','user','#ff2d55','Akun Pengurus','PIN pribadi tiap ustadz',1],['log','clock','#8e8e93','Riwayat Aktivitas','Siapa mengubah apa',1],['atur','gear','#636366','Pengaturan','Status, jadwal, santri, notifikasi',1],['cadangan','cloud','#30b0c7','Cadangan & Arsip','Simpan ke Google Drive',1]]]
 ];
@@ -1497,7 +1522,7 @@ function viewLainnya(){
   if (!LN.sub) {
     const nIzin = (LN.d.izinN || 0);
     isi = LN_MENU.map(([g, items]) => {
-      const baris = items.filter(x => !x[5] || isAdm()).map(([k,e,c,t,s]) => `<button class="lnrow" data-act="lnOpen" data-k="${k}"><span class="lnic" style="background:${c}22;color:${c}">${ico(e,21)}</span><span style="flex:1;min-width:0"><b>${t}</b><small>${s}</small></span>${k==='izin'&&nIzin?`<span class="lnbd">${nIzin}</span>`:''}<span class="lnchev">›</span></button>`).join('');
+      const baris = items.filter(x => !x[5] || isAdm()).map(([k,e,c,t,s]) => `<button class="lnrow" data-act="lnOpen" data-k="${k}"><span class="lnic" style="background:linear-gradient(145deg,${c},${c}cc);color:#fff">${ico(e,20)}</span><span style="flex:1;min-width:0"><b>${t}</b><small>${s}</small></span>${k==='izin'&&nIzin?`<span class="lnbd">${nIzin}</span>`:''}<span class="lnchev">›</span></button>`).join('');
       return baris ? `<div class="muted" style="font-size:12px;font-weight:700;text-transform:uppercase;margin:16px 6px -6px">${g}</div><div class="glass lngrp">${baris}</div>` : '';
     }).join('');
   } else {
@@ -1507,7 +1532,7 @@ function viewLainnya(){
   return `<div class="wrap" style="padding-bottom:130px">${demoBanner()}${head(judul, !!LN.sub)}${isi}</div>${tabbar('lainnya','otab',ADMIN_TABS)}`;
 }
 const kelasChips = () => `<div class="chips" style="margin-top:10px">${S.kelasList.map(k=>`<button class="chip ${k===LN.kelas?'on':''}" data-act="lnKelas" data-k="${esc(k)}">${esc(k)}</button>`).join('')}</div>`;
-const kosong = t => `<div class="muted" style="text-align:center;padding:22px 8px">${t}</div>`;
+const kosong = t => emptyState(t);
 const fieldS = 'padding:9px 12px;margin-top:8px';
 
 /* --- Izin --- */
@@ -1681,7 +1706,10 @@ const LN_ACTIONS = {
   async lnBackup(){ try { toast('Mencadangkan…'); LN.d.cadHasil = await A_('cadangkanSekarang'); toast('✓ Cadangan tersimpan di Drive'); lnRedo(); } catch(e){ toast(e.message,'err'); } },
   async lnArsip(){ lnKeep(); if (!confirm('Arsipkan dan KOSONGKAN data absensi tahun ajaran ini?')) return; try { LN.d.cadHasil = await A_('arsipkan', { nama:LN.f.anama, konfirmasi:LN.f.akonf }); LN.f.akonf = ''; toast('✓ Diarsipkan'); lnRedo(); } catch(e){ toast(e.message,'err'); } },
   // pengaturan notifikasi (di halaman Atur)
-  async pgUji(){ const em = pgVal('pg-uji-email'), wa = pgVal('pg-uji-wa'); try { toast('Mengirim uji…'); const r = await A_('ujiNotif', { email:em, wa:wa }); toast('Email → ' + (r.tujuan||'-') + ': ' + r.email + (r.wa?' · WA: '+r.wa:''), r.email==='TERKIRIM'?'':'warn'); } catch(e){ toast(e.message,'err'); } },
+  pgSisip(d){ const el = PG.fokus; if (!el || !document.body.contains(el)) return toast('Ketuk dulu di dalam isi pesan, lalu pilih data','warn'); const a = el.selectionStart, z = el.selectionEnd; el.value = el.value.slice(0,a) + d.v + el.value.slice(z); el.focus(); el.setSelectionRange(a+d.v.length, a+d.v.length); el.dispatchEvent(new Event('input',{bubbles:true})); },
+  pgTplReset(d){ if (!confirm('Kembalikan isi pesan ke bawaan?')) return; const o = pgTplObj(d.j); o.subjek = PG_TPL[d.j].subjek; o.pesan = PG_TPL[d.j].pesan; PG.dirty = true; pgRedo(); },
+  async pgUjiBatas(){ const o = pgTplObj('batas'), em = pgVal('pg-uji-email'); try { toast('Mengirim uji…'); const r = await A_('ujiNotif', { email:em, jenis:'batas', templat:{ subjek:o.subjek, pesan:o.pesan } }); toast('Email → ' + (r.tujuan||'-') + ': ' + r.email, r.email==='TERKIRIM'?'':'warn'); } catch(e){ toast(e.message,'err'); } },
+  async pgUji(){ const em = pgVal('pg-uji-email'), wa = pgVal('pg-uji-wa'), L = PG.cfg.alfa.langsung; try { toast('Mengirim uji…'); const r = await A_('ujiNotif', { email:em, wa:wa, templat:{ subjek:L.subjek, pesan:L.pesan } }); toast('Email → ' + (r.tujuan||'-') + ': ' + r.email + (r.wa?' · WA: '+r.wa:''), r.email==='TERKIRIM'?'':'warn'); } catch(e){ toast(e.message,'err'); } },
   async pgKirimSekarang(){ if (!confirm('Kirim sekarang ke orang tua santri yang Alfa HARI INI? (satu santri hanya sekali per hari)')) return; try { toast('Mengirim…'); const r = await A_('kirimAlfaSekarang'); toast('Terkirim: ' + r.terkirim + ' · sudah pernah hari ini: ' + r.sudahDikirim); } catch(e){ toast(e.message,'err'); } },
   pgLangsung(d){ const L = PG.cfg.alfa.langsung; if (d.k==='aktif') L.aktif = !L.aktif; else if (d.k==='email') L.email = !L.email; else if (d.k==='wa') L.wa = !L.wa; PG.dirty = true; pgRedo(); },
   pgOrtuMode(d){ PG.cfg.ortu.mode = d.k; PG.dirty = true; pgRedo(); },
